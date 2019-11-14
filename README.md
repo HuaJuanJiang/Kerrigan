@@ -55,7 +55,7 @@ Kerrigan开源项目
 3. 提交代码
 4. 新建 Pull Request
 
-Copyright & License
+# Copyright & License
 
 BSD 2-Clause License
 
