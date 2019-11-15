@@ -25,7 +25,7 @@ location /temp_filter {
 --      如果未登陆，不允许访问详情页，并且转到登陆页
 
 local cj                       = require"cjson"
-local ck                       = require"resty.lepai.basic.cookie"
+local ck                       = require"resty.kerri.basic.cookie"
 local exit                     = ngx.exit
 local say                      = ngx.say
 local PRINT                    = ngx.print

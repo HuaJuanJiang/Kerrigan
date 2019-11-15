@@ -36,12 +36,12 @@
     但是也出现在了redis当中的tile，不会进行任何操作，没有的，会正常补集操作。     
 ]]
 
-local redis         = require"resty.lepai.basic.redis_conn"
-local ctc           = require"resty.lepai.basic.composite_tab_c"
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
-local sec           = require"resty.lepai.basic.get_ngx_sec"
-local du            = require"resty.lepai.upstream.dynamic_upstream"
+local redis         = require"resty.kerri.basic.redis_conn"
+local ctc           = require"resty.kerri.basic.composite_tab_c"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
+local sec           = require"resty.kerri.basic.get_ngx_sec"
+local du            = require"resty.kerri.upstream.dynamic_upstream"
 local cj            = require"cjson"
 local upstream_zone = ngx.shared['upstream_zone']
 local state         = ngx.req.get_uri_args()["state"]

@@ -8,7 +8,7 @@
 -- 将弃用
 -- 两个参数分别是“ngx.var.remote_addr”和“ngx.var.http_x_forwarded_for”
 -- 函数示例用法：
--- local ri = require"resty.lepai.basic.remote_ip"
+-- local ri = require"resty.kerri.basic.remote_ip"
 -- local remote_ip = ngx.var.remote_addr
 -- local x_forwarded_for = ngx.var.http_x_forwarded_for
 -- local remote_ip = ri.remote_ip(remote_ip, x_forwarded_for)
@@ -16,7 +16,7 @@
 -- 2019.08.19 10:43
 --      修复bug，没有引用private_ip_judge模块。导致报错
 
-local pij = require"resty.lepai.basic.private_ip_judge"
+local pij = require"resty.kerri.basic.private_ip_judge"
 local log  = ngx.log
 local INFO = ngx.INFO
 local ERR  = ngx.ERR

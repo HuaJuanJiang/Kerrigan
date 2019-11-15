@@ -9,9 +9,9 @@
 --      算法的方法，这里我把算法的核心部分放在定时器上，因为要做很多的
 --      for循环，所以对于追求速度的连接器connector来说，省去这部分功能
 
-local ctc           = require"resty.lepai.basic.composite_tab_c"
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
+local ctc           = require"resty.kerri.basic.composite_tab_c"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
 local ba            = require"ngx.balancer"
 local cj            = require "cjson"
 local ups_zone      = ngx.shared['upstream_zone']

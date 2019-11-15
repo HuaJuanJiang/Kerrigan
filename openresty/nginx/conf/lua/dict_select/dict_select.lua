@@ -7,8 +7,8 @@
 -- 最近更新
 --   2019.03.15 16:10
 
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
 local cj            = require "cjson"
 local wip_zone      = ngx.shared['white_ip_zone']
 local bip_zone      = ngx.shared['black_ip_zone']

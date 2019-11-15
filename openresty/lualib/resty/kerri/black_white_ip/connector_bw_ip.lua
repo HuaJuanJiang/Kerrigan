@@ -1,12 +1,12 @@
 -- Copyright © (C) Zhendong (DDJ)
 -- 2019.03.05 14:13
 -- 白名单连接器
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
-local sm            = require"resty.lepai.basic.send_message"
-local sec           = require"resty.lepai.basic.get_ngx_sec"
-local ri            = require"resty.lepai.basic.remote_ip"
-local ji            = require"resty.lepai.basic.judge_ip"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
+local sm            = require"resty.kerri.basic.send_message"
+local sec           = require"resty.kerri.basic.get_ngx_sec"
+local ri            = require"resty.kerri.basic.remote_ip"
+local ji            = require"resty.kerri.basic.judge_ip"
 local cj            = require "cjson"
 local wip_zone      = ngx.shared['white_ip_zone']
 local bip_zone      = ngx.shared['black_ip_zone']

@@ -13,10 +13,10 @@ Copyright © (C) Zhendong (DDJ)
         新添加功能，可以添加初始化白名单ip，默认是存在127.0.0.1，这里解决一个问题就是：在kerrigen对外暴露的
     API是受到白名单保护的，这个就需要在公司的IP下可以通过postman执行命令，对于安全来说必不可少
 ]]
-local init_timers                     = require"resty.lepai.init_timers_lib.init_worker_timers"
-local stt                             = require"resty.lepai.basic.str_to_table"
-local tts                             = require"resty.lepai.basic.table_to_str"
-local convert                         = require"resty.lepai.basic.ip_converter"
+local init_timers                     = require"resty.kerri.init_timers_lib.init_worker_timers"
+local stt                             = require"resty.kerri.basic.str_to_table"
+local tts                             = require"resty.kerri.basic.table_to_str"
+local convert                         = require"resty.kerri.basic.ip_converter"
 local cj                              = require "cjson"
 local wip_zone                        = ngx.shared['white_ip_zone']
 local log                             = ngx.log
@@ -99,7 +99,7 @@ local init_upstream_config_pythonfile =
 'json_format.py'
 --python_cmd
 local python_cmd                      =
-'/usr/local/python3.7/bin/python3 '
+'/usr/bin/python '
 
 
 --------------------------------- black ip gain 定时器配置文件 ----------------------------------------

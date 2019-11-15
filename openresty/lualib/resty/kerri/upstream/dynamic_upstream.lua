@@ -25,14 +25,14 @@
     了很小的变动，都可以立马通过定时器传递到redis当中
 ]]
 
-local redis         = require"resty.lepai.basic.redis_conn"
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
-local ctc           = require"resty.lepai.basic.composite_tab_c"
-local sm            = require"resty.lepai.basic.send_message"
-local sec           = require"resty.lepai.basic.get_ngx_sec"
-local rh            = require"resty.lepai.basic.random_hex"
-local ji            = require"resty.lepai.basic.judge_ip"
+local redis         = require"resty.kerri.basic.redis_conn"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
+local ctc           = require"resty.kerri.basic.composite_tab_c"
+local sm            = require"resty.kerri.basic.send_message"
+local sec           = require"resty.kerri.basic.get_ngx_sec"
+local rh            = require"resty.kerri.basic.random_hex"
+local ji            = require"resty.kerri.basic.judge_ip"
 local cj            = require "cjson"
 local upstream_zone = ngx.shared['upstream_zone']
 local say           = ngx.say

@@ -51,11 +51,11 @@
 --      这次的更新主要是集中在(n)nginx+redis集群当中数据删除操作的信息同步，因为本身代码逻辑
 --  是不支持删除的，因此需要另写代码来支持这个功能
 
-local redis			= require"resty.lepai.basic.redis_conn"
-local ctc           = require"resty.lepai.basic.composite_tab_c"
-local stt			= require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
-local sec			= require"resty.lepai.basic.get_ngx_sec"
+local redis			= require"resty.kerri.basic.redis_conn"
+local ctc           = require"resty.kerri.basic.composite_tab_c"
+local stt			= require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
+local sec			= require"resty.kerri.basic.get_ngx_sec"
 local cj			= require "cjson"
 local delay			= ngx.req.get_uri_args()["delay"]
 local ups_zone      = ngx.shared['upstream_zone']

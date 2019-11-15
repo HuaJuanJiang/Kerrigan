@@ -28,7 +28,7 @@ location /temp_filter {
 --
 
 local cj                       = require"cjson"
-local ck                       = require"resty.lepai.basic.cookie"
+local ck                       = require"resty.kerri.basic.cookie"
 local exit                     = ngx.exit
 local say                      = ngx.say
 local PRINT                    = ngx.print

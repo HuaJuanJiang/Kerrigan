@@ -30,12 +30,12 @@
         做标识来让其他连着的nginx可以同步删除信息。
 
 ]]
-local redis			= require"resty.lepai.basic.redis_conn"
-local stt			= require"resty.lepai.basic.str_to_table"
-local tts			= require"resty.lepai.basic.table_to_str"
-local sec			= require"resty.lepai.basic.get_ngx_sec"
-local ji            = require"resty.lepai.basic.judge_ip"
-local convert       = require"resty.lepai.basic.ip_converter"
+local redis			= require"resty.kerri.basic.redis_conn"
+local stt			= require"resty.kerri.basic.str_to_table"
+local tts			= require"resty.kerri.basic.table_to_str"
+local sec			= require"resty.kerri.basic.get_ngx_sec"
+local ji            = require"resty.kerri.basic.judge_ip"
+local convert       = require"resty.kerri.basic.ip_converter"
 local cj			= require "cjson"
 local delay			= ngx.req.get_uri_args()["delay"]
 local iwip_str		= ngx.req.get_uri_args()["iwip_str"]

@@ -1,14 +1,14 @@
 -- Copyright © (C) Zhendong (DDJ)
 --  更新日期
 --      2019.04.11 16:28
-local redis = require"resty.lepai.basic.redis_conn"
-local stt = require"resty.lepai.basic.str_to_table"
-local tts = require"resty.lepai.basic.table_to_str"
-local sm = require"resty.lepai.basic.send_message"
-local ji = require"resty.lepai.basic.judge_ip"
-local rh = require"resty.lepai.basic.random_hex"
-local du = require"resty.lepai.upstream.dynamic_upstream"
-local pu = require"resty.lepai.upstream.persis_upstream_conf"
+local redis = require"resty.kerri.basic.redis_conn"
+local stt = require"resty.kerri.basic.str_to_table"
+local tts = require"resty.kerri.basic.table_to_str"
+local sm = require"resty.kerri.basic.send_message"
+local ji = require"resty.kerri.basic.judge_ip"
+local rh = require"resty.kerri.basic.random_hex"
+local du = require"resty.kerri.upstream.dynamic_upstream"
+local pu = require"resty.kerri.upstream.persis_upstream_conf"
 local cj = require "cjson"
 local upstream_zone = ngx.shared['upstream_zone']
 local log = ngx.log

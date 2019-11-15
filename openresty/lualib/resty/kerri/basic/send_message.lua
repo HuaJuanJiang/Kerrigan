@@ -5,11 +5,11 @@ local INFO          = ngx.INFO
 local ERR           = ngx.ERR
 local log           = ngx.log
 local shell         = require "resty.shell"
-local shells        = require "resty.lepai.basic.shell"
+local shells        = require "resty.kerri.basic.shell"
 local sock = 
-'unix:/home/nginx/openresty/openresty-1.15.8.1/nginx/script/socket/shell.sock'    -- sockproc监听的socket
+'unix:/home/nginx/openresty/nginx/script/socket/shell.sock'    -- sockproc监听的socket
 local main_script = 
-'/home/nginx/openresty/openresty-1.15.8.1/nginx/script/main.sh'
+'/home/nginx/openresty/nginx/script/main.sh'
 
 -- 执行消息推送shell命令，需要配合nginx下的script函数进行消息推送
 function _M.sm(ide, act, w_ip, user, auth)

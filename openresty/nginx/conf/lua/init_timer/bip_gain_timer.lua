@@ -11,13 +11,13 @@
   会认为可能是用户误访问。
 ]]
 
---local shell         = require"resty.lepai.basic.shell"
-local redis         = require"resty.lepai.basic.redis_conn"
-local tts           = require"resty.lepai.basic.table_to_str"
-local stt           = require"resty.lepai.basic.str_to_table"
-local sm            = require"resty.lepai.basic.send_message"
-local sec           = require"resty.lepai.basic.get_ngx_sec"
-local wbip          = require"resty.lepai.black_white_ip.dynamic_bwip"
+--local shell         = require"resty.kerri.basic.shell"
+local redis         = require"resty.kerri.basic.redis_conn"
+local tts           = require"resty.kerri.basic.table_to_str"
+local stt           = require"resty.kerri.basic.str_to_table"
+local sm            = require"resty.kerri.basic.send_message"
+local sec           = require"resty.kerri.basic.get_ngx_sec"
+local wbip          = require"resty.kerri.black_white_ip.dynamic_bwip"
 local cj            = require"cjson"
 local black_ip_zone = ngx.shared['black_ip_zone']
 local logfile       = ngx.req.get_uri_args()["logfile"]

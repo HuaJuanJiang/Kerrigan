@@ -17,11 +17,11 @@
 --          现在已经解决了几乎发现的所有的关于定时器的问题，可以开始开发location wip 信息
 --      同步功能了
 
-local redis         = require"resty.lepai.basic.redis_conn"
-local ctc           = require"resty.lepai.basic.composite_tab_c"
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
-local sec           = require"resty.lepai.basic.get_ngx_sec"
+local redis         = require"resty.kerri.basic.redis_conn"
+local ctc           = require"resty.kerri.basic.composite_tab_c"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
+local sec           = require"resty.kerri.basic.get_ngx_sec"
 local cj            = require "cjson"
 local delay         = ngx.req.get_uri_args()["delay"]
 local ups_zone      = ngx.shared['upstream_zone']

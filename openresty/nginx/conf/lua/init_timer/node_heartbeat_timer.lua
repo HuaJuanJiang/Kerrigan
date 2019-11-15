@@ -18,11 +18,11 @@
 --      预期的，可以说明的是：之前设计的逻辑适用于nginx加入redis已经稳定后，
 --      数据交换的规则，但是并不适用于nginx刚刚加入redis的情况。
 
-local redis         = require"resty.lepai.basic.redis_conn"
-local ctc           = require"resty.lepai.basic.composite_tab_c"
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
-local sec           = require"resty.lepai.basic.get_ngx_sec"
+local redis         = require"resty.kerri.basic.redis_conn"
+local ctc           = require"resty.kerri.basic.composite_tab_c"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
+local sec           = require"resty.kerri.basic.get_ngx_sec"
 local cj            = require "cjson"
 local delay         = ngx.req.get_uri_args()["delay"]
 local node          = ngx.req.get_uri_args()["node"]

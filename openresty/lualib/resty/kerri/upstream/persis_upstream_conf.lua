@@ -24,11 +24,11 @@
 --      upstream list，而不是以“补集”的形式去添加，因此定义了这个功能一般用于在dict和redis
 --      是完全没有数据的情况下使用。
 
-local du            = require"resty.lepai.upstream.dynamic_upstream"
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
-local sm            = require"resty.lepai.basic.send_message"
-local sec           = require"resty.lepai.basic.get_ngx_sec"
+local du            = require"resty.kerri.upstream.dynamic_upstream"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
+local sm            = require"resty.kerri.basic.send_message"
+local sec           = require"resty.kerri.basic.get_ngx_sec"
 local cj            = require "cjson"
 local upstream_zone = ngx.shared['upstream_zone']
 local say           = ngx.say

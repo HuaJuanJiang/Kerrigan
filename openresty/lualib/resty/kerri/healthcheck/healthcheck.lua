@@ -7,9 +7,9 @@
 --          2019.07.01 11:56
 --      对全局变量进行改造，尽量用本地变量表示
 
-local du               = require"resty.lepai.upstream.dynamic_upstream"
-local ctc              = require"resty.lepai.basic.composite_tab_c"
-local sec              = require"resty.lepai.basic.get_ngx_sec"
+local du               = require"resty.kerri.upstream.dynamic_upstream"
+local ctc              = require"resty.kerri.basic.composite_tab_c"
+local sec              = require"resty.kerri.basic.get_ngx_sec"
 local ba               = require"ngx.balancer"
 local cj               = require "cjson"
 local healthcheck_zone = ngx.shared['healthcheck_zone']

@@ -1,7 +1,7 @@
 -- Copyright © (C) Zhendong (DDJ)
 -- 开发日期：2019.02.26 14:31
 
-local wbip          = require"resty.lepai.black_white_ip.dynamic_bwip"
+local wbip          = require"resty.kerri.black_white_ip.dynamic_bwip"
 local log           = ngx.log
 local INFO          = ngx.INFO
 local ERR           = ngx.ERR

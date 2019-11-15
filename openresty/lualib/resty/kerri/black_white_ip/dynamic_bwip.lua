@@ -12,13 +12,13 @@
 --   到 list ，因此现在需要增加同步redis的删除功能，也因此只针对删除功能，添加
 --   功能和并集设计概念重叠，不做修改
 
-local redis         = require"resty.lepai.basic.redis_conn"
-local ctc           = require"resty.lepai.basic.composite_tab_c"
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
-local sm            = require"resty.lepai.basic.send_message"
-local sec           = require"resty.lepai.basic.get_ngx_sec"
-local ji            = require"resty.lepai.basic.judge_ip"
+local redis         = require"resty.kerri.basic.redis_conn"
+local ctc           = require"resty.kerri.basic.composite_tab_c"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
+local sm            = require"resty.kerri.basic.send_message"
+local sec           = require"resty.kerri.basic.get_ngx_sec"
+local ji            = require"resty.kerri.basic.judge_ip"
 local cj            = require "cjson"
 local wip_zone      = ngx.shared['white_ip_zone']
 local bip_zone      = ngx.shared['black_ip_zone']

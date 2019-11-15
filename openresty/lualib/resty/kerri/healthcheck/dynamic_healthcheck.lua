@@ -14,9 +14,9 @@
 --          今天的更新主要内容是将绑定的upstream list，尝试是否可以分出去一份到
 --      healthcheck zone，有自己独立的时间戳，避免定时器之间的一些问题
  
-local stt              = require"resty.lepai.basic.str_to_table"
-local tts              = require"resty.lepai.basic.table_to_str"
-local sec              = require"resty.lepai.basic.get_ngx_sec"
+local stt              = require"resty.kerri.basic.str_to_table"
+local tts              = require"resty.kerri.basic.table_to_str"
+local sec              = require"resty.kerri.basic.get_ngx_sec"
 local cj               = require "cjson"
 local upstream_zone    = ngx.shared['upstream_zone']
 local healthcheck_zone = ngx.shared['healthcheck_zone']

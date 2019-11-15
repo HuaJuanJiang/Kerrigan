@@ -87,10 +87,10 @@
 --          去除了之前的写法，现在改用正常的局部变量调用方法，但是之前的方法会做备份
 
 
-local ctc           = require"resty.lepai.basic.composite_tab_c"
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
-local sec           = require"resty.lepai.basic.get_ngx_sec"
+local ctc           = require"resty.kerri.basic.composite_tab_c"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
+local sec           = require"resty.kerri.basic.get_ngx_sec"
 local cj            = require "cjson"
 local delay         = ngx.req.get_uri_args()["delay"]
 local ups_zone      = ngx.shared['upstream_zone']

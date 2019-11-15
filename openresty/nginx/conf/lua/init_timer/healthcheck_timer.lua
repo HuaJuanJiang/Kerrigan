@@ -35,10 +35,10 @@
 --      但是在openresty-1.15.8.1的时候，可以不把up_list定义成全局变量的情况下，就在代码块
 --      内添加数据。
       
-local stt              = require"resty.lepai.basic.str_to_table"
-local ctc              = require"resty.lepai.basic.composite_tab_c"
-local sec              = require"resty.lepai.basic.get_ngx_sec"
-local hc               = require"resty.lepai.healthcheck.healthcheck"
+local stt              = require"resty.kerri.basic.str_to_table"
+local ctc              = require"resty.kerri.basic.composite_tab_c"
+local sec              = require"resty.kerri.basic.get_ngx_sec"
+local hc               = require"resty.kerri.healthcheck.healthcheck"
 local cj               = require"cjson"
 local delay            = ngx.req.get_uri_args()["delay"]
 local file_path        = ngx.req.get_uri_args()["upstream_file_path"]
@@ -66,11 +66,11 @@ end
 
 --get upstream 'up' and 'down' ip:port list 
 local function tab_spawn_checker(upstream)
-    local title_body = 
+local title_body = 
     upstream_zone:get(upstream)
     if not title_body then
         log(ERR, '[ ERR ]: '
-	    ..'upstream_zone dict can not get [ '
+        ..'upstream_zone dict can not get [ '
 	    ..upstream..' ] , it does not exist,'
         ..' can not healthcheck!!!')
         return

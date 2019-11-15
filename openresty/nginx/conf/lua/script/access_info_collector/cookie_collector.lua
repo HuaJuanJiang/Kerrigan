@@ -3,9 +3,9 @@
 -- 埋点数据处理，cookie获取
 
 local cj                       = require"cjson"
-local ck                       = require"resty.lepai.basic.cookie"
+local ck                       = require"resty.kerri.basic.cookie"
 local cc_zone                  = ngx.shared['cookie_collector_zone']
-local sm                       = require"resty.lepai.basic.send_message"
+local sm                       = require"resty.kerri.basic.send_message"
 local exit                     = ngx.exit
 local say                      = ngx.say
 local PRINT                    = ngx.print

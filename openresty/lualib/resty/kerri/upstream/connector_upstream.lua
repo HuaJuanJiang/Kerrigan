@@ -4,11 +4,11 @@
 -- 需要注意的是目前ip_hex没有实现，
 -- 因此ip_hex会按照rr来进行负载
 
-local ctc           = require"resty.lepai.basic.composite_tab_c"
-local rr            = require"resty.lepai.upstream.roundrobin"
-local stt           = require"resty.lepai.basic.str_to_table"
-local tts           = require"resty.lepai.basic.table_to_str"
-local gri           = require"resty.lepai.basic.remote_ip"
+local ctc           = require"resty.kerri.basic.composite_tab_c"
+local rr            = require"resty.kerri.upstream.roundrobin"
+local stt           = require"resty.kerri.basic.str_to_table"
+local tts           = require"resty.kerri.basic.table_to_str"
+local gri           = require"resty.kerri.basic.remote_ip"
 local ba            = require"ngx.balancer"
 local cj            = require "cjson"
 local upstream_zone = ngx.shared['upstream_zone']

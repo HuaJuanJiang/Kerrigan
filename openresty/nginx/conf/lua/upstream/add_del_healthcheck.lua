@@ -1,12 +1,12 @@
 -- Copyright © (C) Zhendong (DDJ)
 --  开发日期
 --      2019.04.11 16:27 (补)
-local stt  = require"resty.lepai.basic.str_to_table"
-local tts  = require"resty.lepai.basic.table_to_str"
-local sm   = require"resty.lepai.basic.send_message"
-local ji   = require"resty.lepai.basic.judge_ip"
-local rh   = require"resty.lepai.basic.random_hex"
-local hdu  = require"resty.lepai.healthcheck.dynamic_healthcheck"
+local stt  = require"resty.kerri.basic.str_to_table"
+local tts  = require"resty.kerri.basic.table_to_str"
+local sm   = require"resty.kerri.basic.send_message"
+local ji   = require"resty.kerri.basic.judge_ip"
+local rh   = require"resty.kerri.basic.random_hex"
+local hdu  = require"resty.kerri.healthcheck.dynamic_healthcheck"
 local cj   = require "cjson"
 local log  = ngx.log
 local info = ngx.INFO

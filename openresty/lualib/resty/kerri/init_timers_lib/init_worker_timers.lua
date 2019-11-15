@@ -3,7 +3,7 @@
 -- 定时器主配置文件调用的库函数，和conf/lua/init_worker.lua
 -- 配合使用
 local _M            = {} 
-local sm            = require"resty.lepai.basic.send_message"
+local sm            = require"resty.kerri.basic.send_message"
 local log           = ngx.log
 local INFO          = ngx.INFO
 local ERR           = ngx.ERR
