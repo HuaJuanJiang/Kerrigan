@@ -1,61 +1,44 @@
-# Kerrigan-Openresty
+# Kerrigan-OpenResty
 
 #### 介绍
-Kerrigan开源项目
-依靠Openresty开源项目进行的二次开发项目
-主要功能：动态负载均衡、动态黑白名单
+**Kerrigan**依靠OpenResty开源项目进行的二次开发项目
+主要功能：
+
+- 动态负载均衡
+- 动态黑白名单
 
 #### 软件架构
-​		由于项目是依据openresty项目开发的，因此代码大部分都保存在了两个部分，方便大家查看
+
+&emsp;&emsp;由于项目是依据openresty项目开发的，因此代码大部分都保存在了两个部分，方便大家查看
+
+##### 自定义组件函数库
+
+**位置：**[openresty/lualib/resty/lepai](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/lepai )
+
+&emsp;&emsp;这部分代码主要包含了写好的各种功能函数，在开发的时候尽量保持解耦和，通过2当中的lua脚本来引用。
+- 基础组件函数库：**basic**
+- IP黑白名单过滤组件函数库：**black_white_ip**
+- 动态负载均衡组件函数库：**upstream**
+- 健康检查组件函数库：**healthcheck**
+- Kerrigan初始化启动组件函数库：**init_timers_lib**
 
 
-1. lualib 
 
-目录：openresty/openresty-1.15.8.1/lualib/resty/lepai
-   		这部分代码主要包含了写好的各种功能函数，在开发的时候尽量保持解耦和，通过2当中的lua脚本来引用。
-包含：
-   
-    - 基础函数模块：basic
-    - IP黑白名单过滤模块：black_white_ip
-    - 动态负载均衡模块：upstream
-    - 健康检查模块：healthcheck
-    - Kerrigan初始化启动模块：init_timers_lib
-   
-2. conf/lua
-    
-目录：openresty/openresty-1.15.8.1/nginx/conf/lua
-		这部分代码主要包含了通过暴露API接口来对Kerrigan项目内部的数据进行操作，包含增删改查，功能主体都是引用1当中写好的
-    各种函数；定时器在这里也占有很大比重。
-    包含：
-    
-    - IP黑白名单过滤API接口：black_white_ip
-    - 控制动态负载均衡API接口：upstream
-    - 查询DICT API接口：dict_select
-    - 定时器：init_timer
-    - 定时器以及全局配置：init_timer_config
-    - 其他脚本：script
-    
+##### 运行时lua脚本
 
-#### 安装教程
+**位置：**[openresty/nginx/conf/lua](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua)
+&emsp;&emsp;这部分代码主要包含了通过暴露API接口来对Kerrigan项目内部的数据进行操作，包含增删改查，功能主体都是引用1当中写好的各种组件函数。
 
-1. xxxx
-2. xxxx
-3. xxxx
+- IP黑白名单过滤API接口：**black_white_ip**
+- 控制动态负载均衡API接口：**upstream**
+- 查询DICT API接口：**dict_select**
+- 数据同步定时器：**init_timer**
+- 定时器拉起以及全局配置：**init_timer_config**
+- 其他功能脚本：**script**
 
-#### 使用说明
 
-1. xxxx
-2. xxxx
-3. xxxx
 
-#### 参与贡献
-
-1. Fork 本仓库
-2. 新建 Feat_xxx 分支
-3. 提交代码
-4. 新建 Pull Request
-
-# Copyright & License
+## Copyright & License
 
 BSD 2-Clause License
 
@@ -65,12 +48,12 @@ All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are met:
 
-1. Redistributions of source code must retain the above copyright notice, this
-   list of conditions and the following disclaimer.
+- Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
 
-2. Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
+- Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
 
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
 AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
