@@ -161,46 +161,40 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 
 ```json
 {    
-    //upstream名称，根据自身业务命名
+
+    "//": "upstream名称，根据自身业务命名",
     "ew_20": {
-        // 算法选择，目前只支持轮询（roundrobin）
-        // 以及加权轮询
+
+        "//": "算法选择，目前只支持轮询（roundrobin）,以及加权轮询",
         "algo": "ip_hex",
         
-        // 连接池
+        "//": "连接池",
         "pool": {
             
-            // server名称，对应的是nginx upstream当中
-            // 一条转发规则
+            "//": "server名称，对应的是nginx upstream当中一条转发规则",
             "server1": {
                 
-                // ip和端口
+                "//": "ip和端口",
                 "ip_port": "127.0.0.1:8888",
                 
-                // 标志位，形容目前server1的状态，
-                // 包含下面三种情况
-                // up   当前server处于活跃状态，
-                //      可以对外提供服务，健康检查成功
-                // down 当前server处于问题状态，
-                //      不可以提供服务，健康检查失败
-                // nohc 当前server处于未知状态，
-                //      不做健康检查！
+                "//": "标志位，形容目前server1的状态，包含下面三种情况",
+                "//": "up   当前server处于活跃状态，可以对外提供服务，健康检查成功",
+                "//": "down 当前server处于问题状态，不可以提供服务，健康检查失败",
+                "//": "nohc 当前server处于未知状态，不做健康检查！",
                 "status": "up",
                 
-                // 权重，如果带加权，则可以和其他已有
-                // server设置的不一致，如果设置数字一样，
-                // 就是普通轮询
+                "//": "权重，如果带加权，则可以和其他已有server设置的不一致，如果设置数字一样，就是普通轮询",
                 "weight": "2"
             },
-            // server名称需要和前面不一样，
-            // 并且建议按照顺序
+
+            "//": "server名称需要和前面不一样，并且建议按照顺序",
             "server2": {
                 "ip_port": "127.0.0.1:9999",
                 "status": "up",
                 "weight": "1"
             }
         },
-        // 数据结构名称
+        "//": "数据结构名称",
         "title": "ew_20"
     }
 }
