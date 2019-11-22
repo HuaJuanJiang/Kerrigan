@@ -1,5 +1,13 @@
 # Kerrigan-OpenResty
 
+- [Kerrigan-OpenResty](#Kerrigan-OpenResty)
+  - [软件架构](#软件架构)
+    - [自定义函数库(openresty/lualib/resty/kerri)](#自定义函数库(openresty/lualib/resty/kerri))
+  - [安装](#安装)
+    - [编译(可选)](#编译(可选))
+    - [说明](#说明)
+  
+
 ### 介绍
 **Kerrigan**基于OpenResty开源项目进行的二次开发项目
 主要功能：
@@ -11,7 +19,7 @@
 
 &emsp;&emsp;通过lua实现上述功能，并且配合openresty自身特性对代码某些部分进行优化。
 
-#### [自定义函数库（openresty/lualib/resty/kerri）](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )
+#### [自定义函数库(openresty/lualib/resty/kerri)](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )
 
 &emsp;&emsp;这部分代码主要包含了写好的各种功能函数，在开发的时候尽量保持解耦和，通过2当中的lua脚本来引用。
 - 基础组件函数库： **[basic](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri/basic)** 
@@ -68,7 +76,7 @@
 
 
 
-#### 编译（可选）
+#### 编译(可选)
 
 &emsp;&emsp;如果想安装openresty并启动在其他目录，需要自行去[官网](http://openresty.org/en/download.html)下载最新版本，进行编译安装，然后找到下面五个目录：
 
