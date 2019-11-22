@@ -1,12 +1,19 @@
 # Kerrigan-OpenResty
 
 - [Kerrigan-OpenResty](#Kerrigan-OpenResty)
+  - [介绍](#介绍)
   - [软件架构](#软件架构)
-    - [自定义函数库(openresty/lualib/resty/kerri)](#自定义函数库(openresty/lualib/resty/kerri))
+    - [自定义函数库(openresty/lualib/resty/kerri)](#自定义函数库)
+    - [运行时lua脚本(openresty/nginx/conf/lua)](#运行时lua脚本)
+    - [shell&python脚本组件(openresty/nginx/script)](#shell&python脚本组件)
   - [安装](#安装)
-    - [编译(可选)](#编译(可选))
-    - [说明](#说明)
-  
+    - [下载](#下载)
+    - [编译](#编译)
+    - [检查](#检查)
+  - [使用](#使用)
+    - [启动sockproc](#启动sockproc)
+    - [设置upstream](#设置upstream)
+- [Copyright & License](#Copyright & License)
 
 ### 介绍
 **Kerrigan**基于OpenResty开源项目进行的二次开发项目
@@ -19,9 +26,12 @@
 
 &emsp;&emsp;通过lua实现上述功能，并且配合openresty自身特性对代码某些部分进行优化。
 
-#### [自定义函数库(openresty/lualib/resty/kerri)](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )
+#### [自定义函数库](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )
 
 &emsp;&emsp;这部分代码主要包含了写好的各种功能函数，在开发的时候尽量保持解耦和，通过2当中的lua脚本来引用。
+
+&emsp;&emsp;**代码位置：openresty/lualib/resty/kerri**
+
 - 基础组件函数库： **[basic](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri/basic)** 
 - IP黑白名单过滤组件函数库： **[black_white_ip](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri/black_white_ip)** 
 - 动态负载均衡组件函数库： **[upstream](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri/upstream)** 
@@ -30,9 +40,11 @@
 
 
 
-#### [运行时lua脚本（openresty/nginx/conf/lua）](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua)
+#### [运行时lua脚本](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua)
 
 &emsp;&emsp;这部分代码主要包含了通过暴露API接口来对Kerrigan项目内部的数据进行操作，包含增删改查，功能主体都是引用1当中写好的各种组件函数。
+
+&emsp;&emsp;**代码位置：openresty/nginx/conf/lua**
 
 - IP黑白名单过滤API接口：**[black_white_ip](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua/black_white_ip)**
 - 控制动态负载均衡API接口：**[upstream](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua/upstream)**
@@ -43,9 +55,11 @@
 
 
 
-#### [shell&python脚本组件（openresty/nginx/script）]( https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script )
+#### [shell&python脚本组件]( https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script )
 
 &emsp;&emsp;这部分代码包含了定时器拉起组件将其他数据同步定时器拉起；初始化数据结构；以及lua执行外部shell脚本的能力。
+
+&emsp;&emsp;**代码位置：openresty/nginx/script**
 
 -  数据同步定时器拉起脚本：**[init_timer](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script/init_timer)**
 - socket，lua执行shell命令脚本： **[socket](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script/socket)**
@@ -68,7 +82,7 @@
 ./configure --prefix=/home/nginx/openresty --with-luajit --with-http_ssl_module --user=nginx --group=nginx --with-http_realip_module --with-threads --with-http_auth_request_module --with-stream --with-stream_ssl_module  --with-stream_realip_module --with-pcre --with-http_stub_status_module
 ```
 
-##### 说明
+#### 说明
 
 &emsp;&emsp;因为根据实际生产或者测试环境不一样，因为openresty实际运行位置是不固定的。因为我个人的习惯，以及习惯使用普通用户启动openresty，编译参数当中的`--prefix=/home/nginx/openresty`就是运行地址。
 
@@ -76,9 +90,9 @@
 
 
 
-#### 编译(可选)
+#### 编译
 
-&emsp;&emsp;如果想安装openresty并启动在其他目录，需要自行去[官网](http://openresty.org/en/download.html)下载最新版本，进行编译安装，然后找到下面五个目录：
+&emsp;&emsp;如果想安装openresty并启动在其他目录，需要自行去[官网](http://openresty.org/en/download.html)下载最新版本，进行编译安装，然后找到下面五个目录，注意这部分可选根据自身情况来选择执行：
 
 [自定义函数库（openresty/lualib/resty/kerri）](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )
 
