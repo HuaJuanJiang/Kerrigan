@@ -27,10 +27,10 @@ local ID                              = ngx.worker.id
 
 -------------------------------- 定时器执行的 nginx 工作进程配置 ----------------------------------------
 local ip_worker_num                   = 0 -- 选择第1个worker执行ip timer定时任务 
-local upstream_worker_num             = 1 -- 选择第3个worker执行upstream timer定时任务
-local healthcheck_worker_num          = 1 -- 选择第3个worker执行healthcheck timer定时任务
+local upstream_worker_num             = 2 -- 选择第3个worker执行upstream timer定时任务
+local healthcheck_worker_num          = 2 -- 选择第3个worker执行healthcheck timer定时任务
 local init_upstream_config_num        = 0 -- 选择第1个worker执行init upstream config定时任务
-local bip_gain_worker_num             = 0 -- 选择第2个worker执行black ip gain定时任务
+local bip_gain_worker_num             = 1 -- 选择第2个worker执行black ip gain定时任务
 local state_sync_worker_num           = 0 -- 选择第1个worker执行state sync定时任务
 local node_heartbeat_worker_num       = 1 -- 选择第2个worker执行node heartbeat定时任务
 local upserver_sync_worker_num        = 1 -- 选择第2个worker执行upserver sync定时任务
@@ -57,7 +57,7 @@ local healthcheck_timer_file          = 'healthcheck_timer.sh'
 local bip_gain_timer_file             = 'bip_gain_timer.sh'
 local state_sync_timer_file           = 'state_sync_timer.sh'
 local node_heartbeat_timer_file       = 'node_heartbeat_timer.sh'
-local upserver_sync_timer_file             = 'upserver_sync_timer.sh'
+local upserver_sync_timer_file        = 'upserver_sync_timer.sh'
 
 
 ----------------------------------- 执行定时器脚本路径配置 ---------------------------------------------
@@ -115,10 +115,14 @@ local bip_gain_timer_count            =
 
 
 ----------------------------------- 黑白名单定时器初始白名单 --------------------------------------------
--- 由于受到白名单保护，所以定时器启动location，在最初始化的时候无法启动的，
+--     由于受到白名单保护，所以定时器启动location，在最初始化的时候无法启动的，
 -- 因为dict列表为空，白名单ip无法匹配，因此需要在最开始指定一下ip，随后可以
 -- 在 wbip 定时器的帮助下，再对”127.0.0.1“进行设置
+--     在定时器启动之前先对白名单进行设置，因为定时器所在的location是受到白名单保护的，
+-- 因此对于通过shell进行curl触发访问的操作是需要127.0.0.1的ip是在白名单内的。
 wip_zone:set('127.0.0.1', 'reset')
+
+-- 白名单列表，只有下列ip才是可以进行对受保护的特定location进行访问
 local init_white_ip_tab = 
 {   
     "127.0.0.1",
@@ -130,18 +134,18 @@ local init_white_ip_tab =
 local node = 'sit-nginx'
 
 
---------------------------------------- sockproc配置 ---------------------------------------------------
---注意：在第一次没有启动socket的时候，这个脚本会去将它拉起，但是会有一个弊端
---它随着ngnx进程启动，并且占用和nginx相同的端口，也就是80端口，并且在nginx重启，
---它不会被nginx master进程kill，最后重新启动nginx就会导致端口被占用，需要手动kill
---sockproc，所以建议：手动启动sockproc，./sockproc shell.sock 相对目录启动即可，
---注意和basic的send_message.lua库当中的配置相同，比如socket名称和路径！
-local sockproc_path                   =
-'/home/nginx/openresty/nginx/script/socket'
-local sockproc_file                   =
-'sockproc'
-local sockproc_socketname             =
-'shell.sock'
+----------------------------------------- sockproc配置 ---------------------------------------------------
+----注意：在第一次没有启动socket的时候，这个脚本会去将它拉起，但是会有一个弊端
+----它随着ngnx进程启动，并且占用和nginx相同的端口，也就是80端口，并且在nginx重启，
+----它不会被nginx master进程kill，最后重新启动nginx就会导致端口被占用，需要手动kill
+----sockproc，所以建议：手动启动sockproc，./sockproc shell.sock 相对目录启动即可，
+----注意和basic的send_message.lua库当中的配置相同，比如socket名称和路径！
+--local sockproc_path                   =
+--'/home/nginx/openresty/nginx/script/socket'
+--local sockproc_file                   =
+--'sockproc'
+--local sockproc_socketname             =
+--'shell.sock'
 
 
 ----------------------------------------- 定时器 -------------------------------------------------------
