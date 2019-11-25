@@ -14,7 +14,7 @@
   - [使用](#使用)
     - [sockproc配置](#sockproc配置)
     - [upstream配置](#upstream配置)
-    - [nginx.conf配置](#nginx.conf配置)
+    - [nginx主配置](#nginx主配置)
       - [load lua file 变量](#load-lua-file变量)
       - [static html 变量](#static-html变量)
       - [logs dir 变量](#logs-dir变量)
@@ -40,7 +40,6 @@
       - [访问](#访问)
     - [常见错误](#常见错误)
       - [shell.sock failed](#shell-sock-failed)
-- [Copyright & License](#Copyright & License)
 
 ## 介绍
 **Kerrigan**基于OpenResty开源项目进行的二次开发项目
@@ -231,7 +230,7 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 
 
 
-### nginx.conf配置
+### nginx主配置
 
 &emsp;&emsp;因为需要写入文件路径过多，因此把主要路径都更改为变量，存放在nginx配置文件当中，主要集中在**http{}块儿**，map{}字段用来设置变量。
 
