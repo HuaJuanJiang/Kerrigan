@@ -19,7 +19,7 @@
 # 因此在详情列表当中还需要增加一个类似功能的过滤器“detail_template_filter”。
 # 这个过滤和main_filter的区别主要在于它没有过滤详情列表的功能，只是对已经跳转
 # 到这个url的请求再次进行检查，看是否是登陆的。而main_filter需要对有需求访问
-# 详情列表的请求也进行权e过滤。
+# 详情列表的请求也进行权过滤。
 
 server {
         listen       80;
@@ -36,8 +36,8 @@ server {
 server {
     listen       443 ssl;
     server_name  www.7hetech.com 7hetech.com;
-    access_log /home/sc_nginx/logs/accesslog/7hetech.log  main;
-    error_log  /home/sc_nginx/logs/errorlog/7hetech.log info;
+    access_log ${nginx_logs_home}accesslog/${7hetech_log} main;
+    error_log ${nginx_logs_home}errorlog/${7hetech_log} info;
 
     ssl_certificate      /home/nginx/openresty/nginx/ssl/www/www.7hetech.com_bundle.crt;
     ssl_certificate_key  /home/nginx/openresty/nginx/ssl/www/www.7hetech.com.key;
@@ -48,7 +48,7 @@ server {
 
     # 静态文件(防止撞上其他location规则)
     location ~ .*\.(jpg|jpeg|gif|png|ico|css|js|pdf|txt)$ {
-        root 7hetech_static;
+        root "${nginx_home}$static";
     }
 
     # 官网主页入口过滤

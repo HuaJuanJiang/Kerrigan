@@ -8,6 +8,7 @@
     - [shell&python脚本组件(openresty/nginx/script)](#shell&python脚本组件)
   - [安装](#安装)
     - [下载](#下载)
+      - [说明](#说明)
     - [编译](#编译)
     - [检查](#检查)
   - [使用](#使用)
@@ -15,18 +16,18 @@
     - [设置upstream](#设置upstream)
 - [Copyright & License](#Copyright & License)
 
-### 介绍
+## 介绍
 **Kerrigan**基于OpenResty开源项目进行的二次开发项目
 主要功能：
 
 - 动态负载均衡
 - 动态黑白名单
 
-### 软件架构
+## 软件架构
 
 &emsp;&emsp;通过lua实现上述功能，并且配合openresty自身特性对代码某些部分进行优化。
 
-#### [自定义函数库](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )
+### [自定义函数库](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )
 
 &emsp;&emsp;这部分代码主要包含了写好的各种功能函数，在开发的时候尽量保持解耦和，通过2当中的lua脚本来引用。
 
@@ -40,7 +41,7 @@
 
 
 
-#### [运行时lua脚本](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua)
+### [运行时lua脚本](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua)
 
 &emsp;&emsp;这部分代码主要包含了通过暴露API接口来对Kerrigan项目内部的数据进行操作，包含增删改查，功能主体都是引用1当中写好的各种组件函数。
 
@@ -55,7 +56,7 @@
 
 
 
-#### [shell&python脚本组件]( https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script )
+### [shell&python脚本组件]( https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script )
 
 &emsp;&emsp;这部分代码包含了定时器拉起组件将其他数据同步定时器拉起；初始化数据结构；以及lua执行外部shell脚本的能力。
 
@@ -68,9 +69,9 @@
 
 
 
-### 安装
+## 安装
 
-#### 下载
+### 下载
 
 &emsp;&emsp;下载master分支代码。
 
@@ -90,7 +91,7 @@
 
 
 
-#### 编译
+### 编译
 
 &emsp;&emsp;如果想安装openresty并启动在其他目录，需要自行去[官网](http://openresty.org/en/download.html)下载最新版本，进行编译安装，然后找到下面五个目录，注意这部分可选根据自身情况来选择执行：
 
@@ -128,7 +129,7 @@
 
 
 
-#### 检查
+### 检查
 
 &emsp;&emsp;`./sbin/nginx -t`来进行检查，有下面输出就说明成功。
 
@@ -139,11 +140,11 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 
 
 
-### 使用
+## 使用
 
 &emsp;&emsp;使用前需要对openresty自身进行配置，以及kerrigan进行初始化设置。
 
-#### 启动sockproc
+### sockproc配置
 
 &emsp;&emsp;在kerrigan项目当中，需要通过lua执行shell命令，因此开源项目**sockproc**就是完成这个事情的。
 
@@ -151,9 +152,9 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 
 
 
-#### 设置upstream
+### upstream配置
 
-&emsp;&emsp;设置动态负载均衡初始upstream列表，在**YouPath/nginx/script/upstream/init_upstream_conf**目录下，**init_upstream_conf.json**文件中进行修改。
+&emsp;&emsp;设置动态负载均衡初始upstream列表，在**[YouPath/nginx/script/upstream/init_upstream_conf](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script/upstream/init_upstream_conf)**目录下，**init_upstream_conf.json**文件中进行修改。
 
 &emsp;&emsp;作用原理与普通nginx配置中的upstream相同，以upstream列表当中服务ip端口作为基准，进行转发以及健康检查，保证访问始终是不受影响的。
 
@@ -165,7 +166,7 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
     "//": "upstream名称，根据自身业务命名",
     "ew_20": {
 
-        "//": "算法选择，目前只支持轮询（roundrobin）,以及加权轮询",
+        "//": "算法选择，目前只支持轮询（roundrobin）;以及加权轮询（weight roundrobin）,其他算法目前没有支持",
         "algo": "ip_hex",
         
         "//": "连接池",
@@ -199,6 +200,252 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
     }
 }
 ```
+
+
+
+### nginx.conf配置
+
+&emsp;&emsp;因为需要写入文件路径过多，因此把主要路径都更改为变量，存放在nginx配置文件当中，主要集中在**http{}块儿**，map{}字段用来设置变量。
+
+&emsp;&emsp;文件位置：[YouPath/nginx/conf/nginx.conf](https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/nginx.conf)
+
+```nginx
+http {
+    # lua
+    # nginx_lua_home for load lua file
+    map $args $nginx_lua_home {
+        default "/home/nginx/openresty/nginx/conf/lua/";
+        'seat'  1;
+    }
+    # nginx_home for static html
+    map $args $nginx_home {
+        default "/home/nginx/openresty/nginx/";
+        'seat'  1;
+    }
+    # nginx_logs_home for logs dir
+    map $args $nginx_logs_home {
+        default "/home/nginx/logs/";
+        'seat'  1;
+    }
+}
+```
+
+
+
+#### load lua file 
+
+&emsp;&emsp;设置[运行时lua脚本](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua)的位置，保证可以访问到下面的所有文件。
+
+**&emsp;&emsp;$nginx_lua_home**为变量名，建议在变量后面把 **/** 加上，因为做路径拼接，必不可少。
+
+```nginx
+    map $args $nginx_lua_home {
+        default "/home/nginx/openresty/nginx/conf/lua/";
+        'seat'  1;
+    }
+```
+
+
+
+#### static html
+
+&emsp;&emsp;**设置nginx访问静态页面根目录**，也就是html所在目录，之前使用绝对路径，因此避免不了下面`root /home/nginx/openresty/nginx/`的配置，但是需要配置项太多，因此在更改路径之后，需要更改的配置文件太多太分散，当然可以根据个人喜好，选择设置。
+
+```nginx
+    map $args $nginx_home {
+        default "/home/nginx/openresty/nginx/";
+        'seat'  1;
+    }
+```
+
+
+
+#### logs dir
+
+&emsp;&emsp;**设置nginx日志根目录**，可以根据个人喜好设置，因为我个人习惯将日志打印在`/home/nginx/logs`下面，并且依据access log和error  log来进行区分，在后面配置文件也是这样体现。
+
+&emsp;&emsp;**需要注意的是：**在主配置文件当中最上面规定的全局日志，需要写绝对路径或者启动的相对路径，不可以写成变量，因为nginx配置按行执行，变量在设置之前是无法读取的。
+
+```nginx
+    map $args $nginx_logs_home {
+        default "/home/nginx/logs/";
+        'seat'  1;
+    }
+```
+
+
+
+#### lua 配置
+
+&emsp;&emsp;**openresty的lua部分基本配置**。包含lua_package_cpath这样的基本路径，这里我设置的启动路径的上一层，这里也可以写绝对路径。
+
+- **init_worker_by_lua_file：**这个关键字一般用于在nignx启动的时候执行定时任务，这里**init_worker.lua**脚本的任务是拉起子定时器。
+- **lua_shared_dict：**这里规定共享空间的大小，可以类比redis的存储空间
+- 其他的参数以及含义可以参考openresty官网的配置。
+
+```nginx
+    # 必须以相对路径启动
+    init_worker_by_lua_file "conf/lua/init_timer_config/init_worker.lua";
+    lua_package_cpath "../lualib/?.so;;";
+    lua_package_path "../lualib/resty/?.lua;;";
+    lua_shared_dict cookie_collector_zone 1m;
+    lua_shared_dict white_ip_zone         5m;
+    lua_shared_dict black_ip_zone         200m;
+    lua_shared_dict auth_zone             50m;
+    lua_shared_dict upstream_zone         50m;
+    lua_shared_dict healthcheck_zone      50m;
+    #lua_code_cache off;
+    lua_code_cache on;
+    lua_check_client_abort on;
+    lua_max_running_timers 512;
+    lua_max_pending_timers 1024;
+```
+
+
+
+### nginx子配置
+
+&emsp;&emsp;这里主要集中在对于nginx内置变量的配置，包含**luafile**，**staticfile**和**logsfile**变量配置。
+
+#### lua_file
+
+&emsp;&emsp;包含`content_by_lua_file`字段需要加载的所有lua文件。
+
+&emsp;&emsp;后面自己开发的lua脚本通过字段引用也可以写成变量到这个文件，保证后面子配置文件可以直接引用变量无需更改。
+
+&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/args_lua_file.conf]( https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/conf.d/args_lua_file.conf )
+
+```nginx
+# 所有需要加载的lua文件路径配置
+
+# dict_select
+map $args $dict_select {
+        default "dict_select/dict_select.lua";
+            'seat'  1;
+}
+
+# wbip_timer
+map $args $wbip_timer {
+        default "init_timer/black_white_ip_timer.lua";
+            'seat'  1;
+}
+
+# auth_timer 
+map $args $auth_timer {
+        default "init_timer/auth_timer.lua";
+            'seat'  1;
+}
+....
+```
+
+
+
+#### static_file
+
+&emsp;&emsp;包含nginx子配置文件访问静态页面需要的文件夹变量。
+
+&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/args_static_html.conf]( https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/conf.d/args_static_html.conf )
+
+```nginx
+# 前端代码root访问变量
+# vmims
+map $args $vmims_static {
+        default "vmims_html";
+        'seat'  1;
+}
+
+# ew
+map $args $ew_static {
+        default "ew_static_html";
+        'seat'  1;
+}
+.....
+```
+
+
+
+#### logs_file
+
+&emsp;&emsp;包含nginx子配置文件日志变量。
+
+&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/args_logs_file.conf]( https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/conf.d/args_logs_file.conf )
+
+```nginx
+# 日志文件变量
+# vmims
+map $args $vmims_log {
+        default "vmims.log";
+        'seat'  1;
+}
+
+# ew
+map $args $ew_log {
+        default "ew.log";
+        'seat'  1;
+}
+
+# 7hetech
+map $args $7hetech_log {
+        default "7hetech.log";
+        'seat'  1;
+}
+```
+
+
+
+#### nginx upstream配置
+
+&emsp;&emsp;upstream配置和普通nginx配置相同，只不过需要`balancer_by_lua_block`块儿来调用[自定义函数库](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )的connector_upstream模块，传入参数，通过模块读取dict共享内存当中的合适并且健康的upstream信息，通过`ngx.balancer.set_current_peer(ip, port)`关键字进行转发。
+
+&emsp;&emsp;需要注意传入参数就是upstream列表名称，**需要保证它和所有upstream有关配置的唯一性以及一致性**。
+
+&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/upstream.conf]( https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/conf.d/upstream.conf )
+
+```nginx
+# upstream 配置
+upstream svmims {
+    # server 0.0.0.0 必须保证存在，用于占位
+    server 0.0.0.0;
+    
+    # balancer_by_lua_block代码块，引用包connector_upstream.lua，通过函数connector将参数传进去，必须保证参数的名字是和upstream配置当中的title以及外面名字相同
+    balancer_by_lua_block {
+        local cu = require"resty.kerri.upstream.connector_upstream"
+        local clp = cu:new()
+        clp.connector('svmims')
+    }
+}
+
+upstream vmims {
+    server 0.0.0.0;
+    balancer_by_lua_block {
+        local cu = require"resty.kerri.upstream.connector_upstream"
+        local clp = cu:new()
+        clp.connector('vmims')
+    }
+}
+
+upstream ew_10 {
+        server 0.0.0.0;
+        balancer_by_lua_block {
+                local cu = require"resty.kerri.upstream.connector_upstream"
+                local clp = cu:new()
+                clp.connector('ew_10')
+        }
+}
+....
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
