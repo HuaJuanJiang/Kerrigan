@@ -307,7 +307,7 @@ http {
 &emsp;&emsp;**openresty的lua部分基本配置**。包含lua_package_cpath这样的基本路径，这里我设置的启动路径的上一层，这里也可以写绝对路径。
 
 - **init_worker_by_lua_file：**这个关键字一般用于在nignx启动的时候执行定时任务，这里**init_worker.lua**脚本的任务是拉起子定时器。
-- **lua_shared_dict：**这里规定共享空间的大小，可以类比redis的存储空间
+- **lua_shared_dict：**这里规定共享空间的大小，可以类比redis的存储空间。
 - 其他的参数以及含义可以参考openresty官网的配置。
 
 ```nginx
@@ -434,7 +434,8 @@ upstream svmims {
     # server 0.0.0.0 必须保证存在，用于占位
     server 0.0.0.0;
     
-    # balancer_by_lua_block代码块，引用包connector_upstream.lua，通过函数connector将参数传进去，必须保证参数的名字是和upstream配置当中的title以及外面名字相同
+    # balancer_by_lua_block代码块，引用包connector_upstream.lua，通过函数connector将参数传进去，
+    # 必须保证参数的名字是和upstream配置当中的title以及外面名字相同
     balancer_by_lua_block {
         local cu = require"resty.kerri.upstream.connector_upstream"
         local clp = cu:new()
@@ -639,7 +640,8 @@ local bip_gain_timer_count = 1
 #### white-ip-timer初始化配置
 
 ```lua
--- 在定时器启动之前先对白名单进行设置，因为定时器所在的location是受到白名单保护的，因此对于通过shell进行curl触发访问的操作是需要127.0.0.1的ip是在白名单内的。
+-- 在定时器启动之前先对白名单进行设置，因为定时器所在的location是受到白名单保护的，
+-- 因此对于通过shell进行curl触发访问的操作是需要127.0.0.1的ip是在白名单内的。
 wip_zone:set('127.0.0.1', 'reset')
 
 -- 白名单列表，只有下列ip才是可以进行对受保护的特定location进行访问
