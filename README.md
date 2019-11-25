@@ -15,31 +15,31 @@
     - [sockproc配置](#sockproc配置)
     - [upstream配置](#upstream配置)
     - [nginx.conf配置](#nginx.conf配置)
-      - [load lua file 变量](#load lua file 变量)
-      - [static html 变量](#static html 变量)
-      - [logs dir 变量](#logs dir 变量)
-      - [lua 配置](#lua 配置)
+      - [load lua file 变量](#load-lua-file变量)
+      - [static html 变量](#static-html变量)
+      - [logs dir 变量](#logs-dir变量)
+      - [lua 配置](#lua配置)
     - [nginx子配置](#nginx子配置)
       - [args_lua_file](#args_lua_file)
       - [args_static_file](#args_static_file)
       - [args_logs_file](#args_logs_file)
-      - [nginx upstream 配置](#nginx upstream 配置)
-      - [black-white ip 黑白名单配置](#black-white ip 黑白名单配置)
+      - [nginx upstream 配置](#nginx-upstream配置)
+      - [black-white ip 黑白名单配置](#black-white-ip黑白名单配置)
     - [init初始化配置](#init初始化配置)
-      - [woker number 工作进程配置](#woker number 工作进程配置)
-      - [timer delay 定时器间隔配置](#timer delay 定时器间隔配置)
-      - [timer file curl 定时器启动文件配置](#timer file curl 定时器启动文件配置)
-      - [upstream timer 初始化配置](#upstream timer 初始化配置)
-      - [black ip timer 初始化配置](#black ip timer 初始化配置)
-      - [white ip timer 初始化配置](#white ip timer 初始化配置)
-      - [node name](#node name)
+      - [woker number 工作进程配置](#woker-number工作进程配置)
+      - [timer delay 定时器间隔配置](#timer-delay定时器间隔配置)
+      - [timer file curl 定时器启动文件配置](#timer-file-curl定时器启动文件配置)
+      - [upstream timer 初始化配置](#upstream-timer初始化配置)
+      - [black ip timer 初始化配置](#black-ip-timer初始化配置)
+      - [white ip timer 初始化配置](#white-ip-timer初始化配置)
+      - [node name](#node-name)
     - [启动](#启动)
       - [语法检查](#语法检查)
       - [启动nginx](#启动nginx)
       - [查看日志](#查看日志)
       - [访问](#访问)
     - [常见错误](#常见错误)
-      - [shell.sock failed](#shell.sock failed)
+      - [shell.sock failed](#shell-sock-failed)
 - [Copyright & License](#Copyright & License)
 
 ## 介绍
@@ -260,7 +260,7 @@ http {
 
 
 
-#### load lua file 变量
+#### load-lua-file变量
 
 &emsp;&emsp;设置[运行时lua脚本](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua)的位置，保证可以访问到下面的所有文件。
 
@@ -275,7 +275,7 @@ http {
 
 
 
-#### static html 变量
+#### static-html变量
 
 &emsp;&emsp;**设置nginx访问静态页面根目录**，也就是html所在目录，之前使用绝对路径，因此避免不了下面`root /home/nginx/openresty/nginx/`的配置，但是需要配置项太多，因此在更改路径之后，需要更改的配置文件太多太分散，当然可以根据个人喜好，选择设置。
 
@@ -288,7 +288,7 @@ http {
 
 
 
-#### logs dir 变量
+#### logs-dir变量
 
 &emsp;&emsp;**设置nginx日志根目录**，可以根据个人喜好设置，因为我个人习惯将日志打印在`/home/nginx/logs`下面，并且依据access log和error  log来进行区分，在后面配置文件也是这样体现。
 
@@ -303,7 +303,7 @@ http {
 
 
 
-#### lua 配置
+#### lua配置
 
 &emsp;&emsp;**openresty的lua部分基本配置**。包含lua_package_cpath这样的基本路径，这里我设置的启动路径的上一层，这里也可以写绝对路径。
 
@@ -421,7 +421,7 @@ map $args $7hetech_log {
 
 
 
-#### nginx upstream 配置
+#### nginx-upstream配置
 
 &emsp;&emsp;upstream配置和普通nginx配置相同，只不过需要`balancer_by_lua_block`块儿来调用[自定义函数库](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )的connector_upstream模块，传入参数，通过模块读取dict共享内存当中的合适并且健康的upstream信息，通过`ngx.balancer.set_current_peer(ip, port)`关键字进行转发。
 
@@ -465,7 +465,7 @@ upstream ew_10 {
 
 
 
-#### black-white ip 黑白名单配置
+#### black-white-ip黑白名单配置
 
 &emsp;&emsp;这部分是可选项，在第一次使用不建议使用，对项目熟悉后可以使用，主要是使用后不方便排错！
 
@@ -512,7 +512,7 @@ upstream ew_10 {
 
 
 
-#### woker number 工作进程配置
+#### woker-number工作进程配置
 
 &emsp;&emsp;在前面提到定时任务会启动多次，由于多个工作进程的关系，因此通过**ngx.worker.id**变量来对具体执行定时任务的woker 进程进行分配，保证启动的时候每个定时任务只启动一次。
 
@@ -537,7 +537,7 @@ local upserver_sync_worker_num        = 1 -- 选择第2个worker执行upserver s
 
 
 
-#### timer delay 定时器间隔配置
+#### timer-delay定时器间隔配置
 
 &emsp;&emsp;用来控制定时器的执行间隔，也就是多少秒执行一次。
 
@@ -565,7 +565,7 @@ local upserver_sync_delay             = 1  -- upserver 状态同步定时器执�
 
 
 
-#### timer file curl 定时器启动文件配置
+#### timer-file-curl定时器启动文件配置
 
 &emsp;&emsp;在init_worker_by_lua当中，**不可以执行阻塞命令**，但是定时器当中有很多代码都不符合这样的规则，因此选择通过一个取巧的办法，将定时器挂到一个server的location下面，访问特定域名的location实现激活定时器，访问的过程则选择了外部执行shell命令通过curl来实现，每个定时器的curl命令的url不一样，因此不同的定时器对应不同文件。
 
@@ -594,7 +594,7 @@ local upserver_sync_timer_file        = 'upserver_sync_timer.sh'
 
 
 
-#### upstream timer 初始化配置
+#### upstream-timer初始化配置
 
 &emsp;&emsp;upstream 初始化定时器配置，主要是定义要读取的upstream json文件位置，从中读取upstream信息。
 
@@ -619,7 +619,7 @@ local python_cmd = '/usr/bin/python '
 
 
 
-#### black ip timer 初始化配置
+#### black-ip-timer初始化配置
 
 &emsp;&emsp;black ip 定时器初始化配置，包含了日志的位置，以及设置ip黑名单过期时间，也就是在多少个小时之后黑名单ip将过期。
 
@@ -637,7 +637,7 @@ local bip_gain_timer_count = 1
 
 
 
-#### white ip timer 初始化配置
+#### white-ip-timer初始化配置
 
 ```lua
 -- 在定时器启动之前先对白名单进行设置，因为定时器所在的location是受到白名单保护的，因此对于通过shell进行curl触发访问的操作是需要127.0.0.1的ip是在白名单内的。
@@ -653,7 +653,7 @@ local init_white_ip_tab =
 
 
 
-#### node name
+#### node-name
 
 &emsp;&emsp;在多节点的情况下，需要对每个节点进行命名
 
@@ -716,7 +716,7 @@ error_log logs/error.log info;
 
 
 
-#### shell.sock failed
+#### shell-sock-failed
 
 &emsp;&emsp;当日志报错如下，尤其是`connect() to unix:/home/nginx/openresty/nginx/script/socket/shell.sock failed (111: Connection refused)`说明没有在启动nginx之前将sockproc脚本启动，在没有对kerrigan进行更新之前，都是采用shell命令的形式触发定时器，因此可以根据上面的[sockproc配置](#sockproc配置)来解决问题。
 
