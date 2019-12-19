@@ -52,45 +52,45 @@
 
 &emsp;&emsp;通过lua实现上述功能，并且配合openresty自身特性对代码某些部分进行优化。
 
-### [自定义函数库](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )
+### [自定义函数库](https://github.com/ranzhendong/kerrigan/tree/master/openresty/lualib/resty/kerri )
 
 &emsp;&emsp;这部分代码主要包含了写好的各种功能函数，在开发的时候尽量保持解耦和，通过2当中的lua脚本来引用。
 
 &emsp;&emsp;**代码位置：openresty/lualib/resty/kerri**
 
-- 基础组件函数库： **[basic](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri/basic)** 
-- IP黑白名单过滤组件函数库： **[black_white_ip](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri/black_white_ip)** 
-- 动态负载均衡组件函数库： **[upstream](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri/upstream)** 
-- 健康检查组件函数库：**[healthcheck](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri/healthcheck)**
-- Kerrigan初始化启动组件函数库： **[init_timers_lib](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri/init_timers_lib)** 
+- 基础组件函数库： **[basic](https://github.com/ranzhendong/kerrigan/tree/master/openresty/lualib/resty/kerri/basic)** 
+- IP黑白名单过滤组件函数库： **[black_white_ip](https://github.com/ranzhendong/kerrigan/tree/master/openresty/lualib/resty/kerri/black_white_ip)** 
+- 动态负载均衡组件函数库： **[upstream](https://github.com/ranzhendong/kerrigan/tree/master/openresty/lualib/resty/kerri/upstream)** 
+- 健康检查组件函数库：**[healthcheck](https://github.com/ranzhendong/kerrigan/tree/master/openresty/lualib/resty/kerri/healthcheck)**
+- Kerrigan初始化启动组件函数库： **[init_timers_lib](https://github.com/ranzhendong/kerrigan/tree/master/openresty/lualib/resty/kerri/init_timers_lib)** 
 
 
 
-### [运行时lua脚本](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua)
+### [运行时lua脚本](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua)
 
 &emsp;&emsp;这部分代码主要包含了通过暴露API接口来对Kerrigan项目内部的数据进行操作，包含增删改查，功能主体都是引用1当中写好的各种组件函数。
 
 &emsp;&emsp;**代码位置：openresty/nginx/conf/lua**
 
-- IP黑白名单过滤API接口：**[black_white_ip](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua/black_white_ip)**
-- 控制动态负载均衡API接口：**[upstream](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua/upstream)**
-- 查询DICT API接口： **[dict_select](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua/dict_select)**
-- 数据同步定时器： **[init_timer](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua/init_timer)**
-- 定时器拉起以及全局配置： **[init_timer_config](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua/init_timer_config)** 
-- 其他功能脚本： **[script](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua/script)** 
+- IP黑白名单过滤API接口：**[black_white_ip](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua/black_white_ip)**
+- 控制动态负载均衡API接口：**[upstream](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua/upstream)**
+- 查询DICT API接口： **[dict_select](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua/dict_select)**
+- 数据同步定时器： **[init_timer](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua/init_timer)**
+- 定时器拉起以及全局配置： **[init_timer_config](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua/init_timer_config)** 
+- 其他功能脚本： **[script](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua/script)** 
 
 
 
-### [shellpython脚本]( https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script )
+### [shellpython脚本]( https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/script )
 
 &emsp;&emsp;这部分代码包含了定时器拉起组件将其他数据同步定时器拉起；初始化数据结构；以及lua执行外部shell脚本的能力。
 
 &emsp;&emsp;**代码位置：openresty/nginx/script**
 
--  数据同步定时器拉起脚本：**[init_timer](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script/init_timer)**
-- socket，lua执行shell命令脚本： **[socket](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script/socket)**
-- 初始化upstream数据结构脚本： **[upstream](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script/upstream)**
-- 消息发送脚本： **[send_message](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script/send_message)**
+-  数据同步定时器拉起脚本：**[init_timer](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/script/init_timer)**
+- socket，lua执行shell命令脚本： **[socket](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/script/socket)**
+- 初始化upstream数据结构脚本： **[upstream](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/script/upstream)**
+- 消息发送脚本： **[send_message](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/script/send_message)**
 
 
 
@@ -120,31 +120,31 @@
 
 &emsp;&emsp;如果想安装openresty并启动在其他目录，需要自行去[官网](http://openresty.org/en/download.html)下载最新版本，进行编译安装，然后找到下面五个目录，注意这部分可选根据自身情况来选择执行：
 
-[自定义函数库（openresty/lualib/resty/kerri）](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )
+[自定义函数库（openresty/lualib/resty/kerri）](https://github.com/ranzhendong/kerrigan/tree/master/openresty/lualib/resty/kerri )
 
 解压复制到YouPath/lualib/resty/kerri
 
 
 
-[运行时lua脚本（openresty/nginx/conf/lua）](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua)
+[运行时lua脚本（openresty/nginx/conf/lua）](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua)
 
 解压复制到YouPath/nginx/conf/lua
 
 
 
-[shell&python脚本组件（openresty/nginx/script）]( https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script )
+[shell&python脚本组件（openresty/nginx/script）]( https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/script )
 
 解压复制到YouPath/nginx/script
 
 
 
-[openresty主配置文件（openresty/nginx/conf/nginx.conf）](https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/nginx.conf)
+[openresty主配置文件（openresty/nginx/conf/nginx.conf）](https://github.com/ranzhendong/kerrigan/blob/master/openresty/nginx/conf/nginx.conf)
 
 解压复制到YouPath/nginx/conf
 
 
 
-[openresty子配置文件（openresty/nginx/conf/conf.d）](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/conf.d)
+[openresty子配置文件（openresty/nginx/conf/conf.d）](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/conf.d)
 
 解压复制到YouPath/nginx/conf/conf.d
 
@@ -183,7 +183,7 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 
 &emsp;&emsp;作用原理与普通nginx配置中的upstream相同，以upstream列表当中服务ip端口作为基准，进行转发以及健康检查，保证访问始终是不受影响的。
 
-&emsp;&emsp;文件位置：[YouPath/nginx/script/upstream/init_upstream_conf/init_upstream_conf.json](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script/upstream/init_upstream_conf/init_upstream_conf.json)
+&emsp;&emsp;文件位置：[YouPath/nginx/script/upstream/init_upstream_conf/init_upstream_conf.json](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/script/upstream/init_upstream_conf/init_upstream_conf.json)
 
 &emsp;&emsp;因此在nginx配置文件的upstream块儿当中指定后端服务器IP地址以及端口，但是在kerrigan项目当中，则是以json形式展现，下面是一个示例：
 
@@ -234,7 +234,7 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 
 &emsp;&emsp;因为需要写入文件路径过多，因此把主要路径都更改为变量，存放在nginx配置文件当中，主要集中在**http{}块儿**，map{}字段用来设置变量。
 
-&emsp;&emsp;文件位置：[YouPath/nginx/conf/nginx.conf](https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/nginx.conf)
+&emsp;&emsp;文件位置：[YouPath/nginx/conf/nginx.conf](https://github.com/ranzhendong/kerrigan/blob/master/openresty/nginx/conf/nginx.conf)
 
 ```nginx
 http {
@@ -261,7 +261,7 @@ http {
 
 #### load-lua-file变量
 
-&emsp;&emsp;设置[运行时lua脚本](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/conf/lua)的位置，保证可以访问到下面的所有文件。
+&emsp;&emsp;设置[运行时lua脚本](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua)的位置，保证可以访问到下面的所有文件。
 
 **&emsp;&emsp;$nginx_lua_home**为变量名，建议在变量后面把 **/** 加上，因为做路径拼接，必不可少。
 
@@ -340,7 +340,7 @@ http {
 
 &emsp;&emsp;后面自己开发的lua脚本通过字段引用也可以写成变量到这个文件，保证后面子配置文件可以直接引用变量无需更改。
 
-&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/args_lua_file.conf]( https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/conf.d/args_lua_file.conf )
+&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/args_lua_file.conf]( https://github.com/ranzhendong/kerrigan/blob/master/openresty/nginx/conf/conf.d/args_lua_file.conf )
 
 ```nginx
 # 所有需要加载的lua文件路径配置
@@ -371,7 +371,7 @@ map $args $auth_timer {
 
 &emsp;&emsp;包含nginx子配置文件访问静态页面需要的文件夹变量。
 
-&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/args_static_html.conf]( https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/conf.d/args_static_html.conf )
+&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/args_static_html.conf]( https://github.com/ranzhendong/kerrigan/blob/master/openresty/nginx/conf/conf.d/args_static_html.conf )
 
 ```nginx
 # 前端代码root访问变量
@@ -395,7 +395,7 @@ map $args $ew_static {
 
 &emsp;&emsp;包含nginx子配置文件日志变量。
 
-&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/args_logs_file.conf]( https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/conf.d/args_logs_file.conf )
+&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/args_logs_file.conf]( https://github.com/ranzhendong/kerrigan/blob/master/openresty/nginx/conf/conf.d/args_logs_file.conf )
 
 ```nginx
 # 日志文件变量
@@ -422,11 +422,11 @@ map $args $7hetech_log {
 
 #### nginx-upstream配置
 
-&emsp;&emsp;upstream配置和普通nginx配置相同，只不过需要`balancer_by_lua_block`块儿来调用[自定义函数库](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/lualib/resty/kerri )的connector_upstream模块，传入参数，通过模块读取dict共享内存当中的合适并且健康的upstream信息，通过`ngx.balancer.set_current_peer(ip, port)`关键字进行转发。
+&emsp;&emsp;upstream配置和普通nginx配置相同，只不过需要`balancer_by_lua_block`块儿来调用[自定义函数库](https://github.com/ranzhendong/kerrigan/tree/master/openresty/lualib/resty/kerri )的connector_upstream模块，传入参数，通过模块读取dict共享内存当中的合适并且健康的upstream信息，通过`ngx.balancer.set_current_peer(ip, port)`关键字进行转发。
 
 &emsp;&emsp;需要注意传入参数就是upstream列表名称，**需要保证它和所有upstream有关配置的唯一性以及一致性**。
 
-&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/upstream.conf]( https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/conf.d/upstream.conf )
+&emsp;&emsp;文件位置：[YouPath/nginx/conf/conf.d/upstream.conf]( https://github.com/ranzhendong/kerrigan/blob/master/openresty/nginx/conf/conf.d/upstream.conf )
 
 ```nginx
 # upstream 配置
@@ -484,7 +484,7 @@ upstream ew_10 {
 
 &emsp;&emsp;添加效果如下：
 
-&emsp;&emsp;也可以参考[main_lua.conf(conf.d下面的子配置文件)](https://github.com/HuaJuanJiang/kerrigan/blob/master/openresty/nginx/conf/conf.d/main_lua.conf)
+&emsp;&emsp;也可以参考[main_lua.conf(conf.d下面的子配置文件)](https://github.com/ranzhendong/kerrigan/blob/master/openresty/nginx/conf/conf.d/main_lua.conf)
 
 ```nginx
     location /api {
@@ -571,7 +571,7 @@ local upserver_sync_delay             = 1  -- upserver 状态同步定时器执�
 
 &emsp;&emsp;后面可以通过内置http库通过内部访问，这样的访问方式就丢弃了。
 
-&emsp;&emsp;shell脚本位置：[YouPath/nginx/script/init_timer](  https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script/init_timer )
+&emsp;&emsp;shell脚本位置：[YouPath/nginx/script/init_timer](  https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/script/init_timer )
 
 ```lua
 -------------------------------------- 定时器文件名配置 ------------------------------------------------
@@ -598,7 +598,7 @@ local upserver_sync_timer_file        = 'upserver_sync_timer.sh'
 
 &emsp;&emsp;upstream 初始化定时器配置，主要是定义要读取的upstream json文件位置，从中读取upstream信息。
 
-&emsp;&emsp;默认的位置是：[YouPath/nginx/script/upstream/init_upstream_conf/init_upstream_conf.json](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx/script/upstream/init_upstream_conf/init_upstream_conf.json)，但是可以根据自身部署的位置进行更换，也就是需要将变量**init_upstream_config_filepath**进行替换，其他的如文件名也可以根据自身需求进行更换。
+&emsp;&emsp;默认的位置是：[YouPath/nginx/script/upstream/init_upstream_conf/init_upstream_conf.json](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/script/upstream/init_upstream_conf/init_upstream_conf.json)，但是可以根据自身部署的位置进行更换，也就是需要将变量**init_upstream_config_filepath**进行替换，其他的如文件名也可以根据自身需求进行更换。
 
 ```lua
 ------------------------------ init upstream conf 定时器配置文件 ---------------------------------------
@@ -670,7 +670,7 @@ local init_white_ip_tab =
 
 &emsp;&emsp;首先进行语法检查，保证变量设置以及基本server upstream是正确的。
 
-&emsp;&emsp;必须在[YouPath/nginx](https://github.com/HuaJuanJiang/kerrigan/tree/master/openresty/nginx)目录下启动，需要为相对路径，对于非root用户监听80和443端口，需要`chown root ./sbin/nginx`和`chmod u+s ./sbin/nginx`才可以正常访问。
+&emsp;&emsp;必须在[YouPath/nginx](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx)目录下启动，需要为相对路径，对于非root用户监听80和443端口，需要`chown root ./sbin/nginx`和`chmod u+s ./sbin/nginx`才可以正常访问。
 
 ```shell
 [nginx@nginx nginx]$ ./sbin/nginx -t
