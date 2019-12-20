@@ -1,16 +1,23 @@
 # Kerrigan-OpenResty
 
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/ranzhendong/kerrigan?include_prereleases&style=plastic)
+![GitHub last commit (README.assets/master.svg)](https://img.shields.io/github/last-commit/ranzhendong/kerrigan/master?style=plastic)
+![GitHub All Releases](https://img.shields.io/github/downloads/ranzhendong/kerrigan/total?style=plastic)
+![GitHub](https://img.shields.io/github/license/ranzhendong/kerrigan?style=plastic)
+
 - [Kerrigan-OpenResty](#Kerrigan-OpenResty)
   - [介绍](#介绍)
   - [软件架构](#软件架构)
     - [自定义函数库(openresty/lualib/resty/kerri)](#自定义函数库)
     - [运行时lua脚本(openresty/nginx/conf/lua)](#运行时lua脚本)
     - [shell&python脚本组件(openresty/nginx/script)](#shellpython脚本)
+
   - [安装](#安装)
     - [下载](#下载)
       - [说明](#说明)
     - [编译](#编译)
     - [检查](#检查)
+
   - [使用](#使用)
     - [sockproc配置](#sockproc配置)
     - [upstream配置](#upstream配置)
@@ -19,12 +26,14 @@
       - [static html 变量](#static-html变量)
       - [logs dir 变量](#logs-dir变量)
       - [lua 配置](#lua配置)
+
     - [nginx子配置](#nginx子配置)
       - [args_lua_file](#args_lua_file)
       - [args_static_file](#args_static_file)
       - [args_logs_file](#args_logs_file)
       - [nginx upstream 配置](#nginx-upstream配置)
       - [black-white ip 黑白名单配置](#black-white-ip黑白名单配置)
+
     - [init初始化配置](#init初始化配置)
       - [woker number 工作进程配置](#woker-number工作进程配置)
       - [timer delay 定时器间隔配置](#timer-delay定时器间隔配置)
@@ -33,24 +42,41 @@
       - [black ip timer 初始化配置](#black-ip-timer初始化配置)
       - [white ip timer 初始化配置](#white-ip-timer初始化配置)
       - [node name](#node-name)
+
     - [启动](#启动)
       - [语法检查](#语法检查)
       - [启动nginx](#启动nginx)
       - [查看日志](#查看日志)
       - [访问](#访问)
+
     - [常见错误](#常见错误)
       - [shell.sock failed](#shell-sock-failed)
 
+
+
+</br></br></br>
+
 ## 介绍
+
+</br>
+
 **Kerrigan**基于OpenResty开源项目进行的二次开发项目
 主要功能：
 
 - 动态负载均衡
 - 动态黑白名单
 
+
+
+</br></br></br>
+
 ## 软件架构
 
 &emsp;&emsp;通过lua实现上述功能，并且配合openresty自身特性对代码某些部分进行优化。
+
+
+
+</br></br>
 
 ### [自定义函数库](https://github.com/ranzhendong/kerrigan/tree/master/openresty/lualib/resty/kerri )
 
@@ -65,6 +91,8 @@
 - Kerrigan初始化启动组件函数库： **[init_timers_lib](https://github.com/ranzhendong/kerrigan/tree/master/openresty/lualib/resty/kerri/init_timers_lib)** 
 
 
+
+</br></br>
 
 ### [运行时lua脚本](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua)
 
@@ -81,6 +109,8 @@
 
 
 
+</br></br>
+
 ### [shellpython脚本]( https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/script )
 
 &emsp;&emsp;这部分代码包含了定时器拉起组件将其他数据同步定时器拉起；初始化数据结构；以及lua执行外部shell脚本的能力。
@@ -94,7 +124,11 @@
 
 
 
+</br></br></br>
+
 ## 安装
+
+</br>
 
 ### 下载
 
@@ -108,6 +142,10 @@
 ./configure --prefix=/home/nginx/openresty --with-luajit --with-http_ssl_module --user=nginx --group=nginx --with-http_realip_module --with-threads --with-http_auth_request_module --with-stream --with-stream_ssl_module  --with-stream_realip_module --with-pcre --with-http_stub_status_module
 ```
 
+</br>
+
+
+
 #### 说明
 
 &emsp;&emsp;因为根据实际生产或者测试环境不一样，因为openresty实际运行位置是不固定的。因为我个人的习惯，以及习惯使用普通用户启动openresty，编译参数当中的`--prefix=/home/nginx/openresty`就是运行地址。
@@ -115,6 +153,8 @@
 &emsp;&emsp;当使用**普通用户启动openresty**，默认是不允许运行和监听80端口，因此需要使用命令：`chown root nginx`和`chmod u+s nginx`。
 
 
+
+</br></br>
 
 ### 编译
 
@@ -154,6 +194,8 @@
 
 
 
+</br></br>
+
 ### 检查
 
 &emsp;&emsp;`./sbin/nginx -t`来进行检查，有下面输出就说明成功。
@@ -165,9 +207,15 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 
 
 
+</br></br></br>
+
 ## 使用
 
 &emsp;&emsp;使用前需要对openresty自身进行配置，以及kerrigan进行初始化设置。
+
+
+
+</br></br>
 
 ### sockproc配置
 
@@ -176,6 +224,8 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 &emsp;&emsp;在**YouPath/nginx/script/socket**目录下，执行下面命令：`./sockproc shell.sock`即可，如果发现已有**shell.sock**文件，那么执行的时候就会报错，因此可以删除之后，再次执行，如果没有任何输出，说明执行成功。
 
 
+
+</br></br>
 
 ### upstream配置
 
@@ -230,6 +280,8 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 
 
 
+</br></br>
+
 ### nginx主配置
 
 &emsp;&emsp;因为需要写入文件路径过多，因此把主要路径都更改为变量，存放在nginx配置文件当中，主要集中在**http{}块儿**，map{}字段用来设置变量。
@@ -259,6 +311,8 @@ http {
 
 
 
+</br>
+
 #### load-lua-file变量
 
 &emsp;&emsp;设置[运行时lua脚本](https://github.com/ranzhendong/kerrigan/tree/master/openresty/nginx/conf/lua)的位置，保证可以访问到下面的所有文件。
@@ -274,6 +328,8 @@ http {
 
 
 
+</br>
+
 #### static-html变量
 
 &emsp;&emsp;**设置nginx访问静态页面根目录**，也就是html所在目录，之前使用绝对路径，因此避免不了下面`root /home/nginx/openresty/nginx/`的配置，但是需要配置项太多，因此在更改路径之后，需要更改的配置文件太多太分散，当然可以根据个人喜好，选择设置。
@@ -286,6 +342,8 @@ http {
 ```
 
 
+
+</br>
 
 #### logs-dir变量
 
@@ -301,6 +359,8 @@ http {
 ```
 
 
+
+</br>
 
 #### lua配置
 
@@ -330,9 +390,15 @@ http {
 
 
 
+</br></br>
+
 ### nginx子配置
 
 &emsp;&emsp;这里主要集中在对于nginx内置变量的配置，包含**luafile**，**staticfile**和**logsfile**变量配置。
+
+
+
+</br>
 
 #### args_lua_file
 
@@ -367,6 +433,8 @@ map $args $auth_timer {
 
 
 
+</br>
+
 #### args_static_file
 
 &emsp;&emsp;包含nginx子配置文件访问静态页面需要的文件夹变量。
@@ -390,6 +458,8 @@ map $args $ew_static {
 ```
 
 
+
+</br>
 
 #### args_logs_file
 
@@ -419,6 +489,8 @@ map $args $7hetech_log {
 ```
 
 
+
+</br>
 
 #### nginx-upstream配置
 
@@ -465,6 +537,8 @@ upstream ew_10 {
 
 
 
+</br>
+
 #### black-white-ip黑白名单配置
 
 &emsp;&emsp;这部分是可选项，在第一次使用不建议使用，对项目熟悉后可以使用，主要是使用后不方便排错！
@@ -504,6 +578,8 @@ upstream ew_10 {
 
 
 
+</br></br>
+
 ### init初始化配置
 
 &emsp;&emsp;初始化的本质是通过openresty提供的**init_worker_by_lua**实现的，在初期，这部分被设计用来实现启动openresty后的定时任务例如心跳检查，定时拉取服务器配置的工作。
@@ -511,6 +587,8 @@ upstream ew_10 {
 &emsp;&emsp;但是这里需要注意的是：如果有多个工作进行，则在启动的时候通过**init_worker_by_lua**启动两个相同的任务。
 
 
+
+</br>
 
 #### woker-number工作进程配置
 
@@ -536,6 +614,8 @@ local upserver_sync_worker_num        = 1 -- 选择第2个worker执行upserver s
 ```
 
 
+
+</br>
 
 #### timer-delay定时器间隔配置
 
@@ -564,6 +644,8 @@ local upserver_sync_delay             = 1  -- upserver 状态同步定时器执�
 ```
 
 
+
+</br>
 
 #### timer-file-curl定时器启动文件配置
 
@@ -594,6 +676,8 @@ local upserver_sync_timer_file        = 'upserver_sync_timer.sh'
 
 
 
+</br>
+
 #### upstream-timer初始化配置
 
 &emsp;&emsp;upstream 初始化定时器配置，主要是定义要读取的upstream json文件位置，从中读取upstream信息。
@@ -619,6 +703,8 @@ local python_cmd = '/usr/bin/python '
 
 
 
+</br>
+
 #### black-ip-timer初始化配置
 
 &emsp;&emsp;black ip 定时器初始化配置，包含了日志的位置，以及设置ip黑名单过期时间，也就是在多少个小时之后黑名单ip将过期。
@@ -637,6 +723,8 @@ local bip_gain_timer_count = 1
 
 
 
+</br>
+
 #### white-ip-timer初始化配置
 
 ```lua
@@ -654,17 +742,23 @@ local init_white_ip_tab =
 
 
 
+</br>
+
 #### node-name
 
 &emsp;&emsp;在多节点的情况下，需要对每个节点进行命名
 
 
 
+</br></br>
+
 ### 启动
 
 &emsp;&emsp;在按照上面的进行配置以后尝试启动。
 
 
+
+</br>
 
 #### 语法检查
 
@@ -680,6 +774,8 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 
 
 
+</br>
+
 #### 启动nginx
 
 ```shell
@@ -687,6 +783,8 @@ nginx: configuration file /home/nginx/openresty/nginx/conf/nginx.conf test is su
 ```
 
 
+
+</br>
 
 #### 查看日志
 
@@ -705,17 +803,23 @@ error_log logs/error.log info;
 
 
 
+</br>
+
 #### 访问
 
 &emsp;&emsp;通过浏览器进行访问，并且看输出日志
 
 
 
+</br></br>
+
 ### 常见错误
 
 &emsp;&emsp;在启动nginx的时候会遇到很多错误，是通过`./sbin/nginx -t`无法检查出来的，看项目是否真的启动成功，需要查看错误日志error.log。
 
 
+
+</br>
 
 #### shell-sock-failed
 
@@ -728,7 +832,7 @@ error_log logs/error.log info;
 
 
 
-
+</br></br>
 
 # Copyright & License
 
