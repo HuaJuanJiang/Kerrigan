@@ -1,7 +1,7 @@
 # Kerrigan-OpenResty
 
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/ranzhendong/kerrigan?include_prereleases&style=plastic)
-![GitHub last commit (README.assets/master.svg)](https://img.shields.io/github/last-commit/ranzhendong/kerrigan/master?style=plastic)
+![GitHub last commit](https://img.shields.io/github/last-commit/ranzhendong/kerrigan/master?style=plastic)
 ![GitHub All Releases](https://img.shields.io/github/downloads/ranzhendong/kerrigan/total?style=plastic)
 ![GitHub](https://img.shields.io/github/license/ranzhendong/kerrigan?style=plastic)
 
