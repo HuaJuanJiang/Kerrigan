@@ -9,3 +9,4 @@ beforeGit.sh
 logs
 openresty/nginx/logs/*.log
 openresty/nginx/*temp
+redis
