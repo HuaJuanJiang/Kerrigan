@@ -1,0 +1,11 @@
+.gitconfig
+.bash_history
+.bash_logout
+.bash_profile
+.bashrc
+.viminfo
+.ssh
+beforeGit.sh
+logs
+openresty/nginx/logs/*.log
+openresty/nginx/*temp
