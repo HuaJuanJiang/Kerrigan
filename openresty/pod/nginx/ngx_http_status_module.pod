@@ -179,7 +179,7 @@ By default, status information is output in the JSON format.
 
 Alternatively, data may be output as JSONP.
 The I<C<callback>> parameter specifies the name of a callback function.
-The value can contain variables.
+Parameter value can contain variables.
 If parameter is omitted, or the computed value is an empty string,
 then “C<ngx_status_jsonp_callback>” is used.
 

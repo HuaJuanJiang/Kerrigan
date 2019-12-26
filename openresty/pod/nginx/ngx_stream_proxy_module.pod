@@ -204,6 +204,24 @@ the overall rate will be twice as much as the specified limit.
 
 
 
+Parameter value can contain variables (1.17.0).
+It may be useful in cases where rate should be limited
+depending on a certain condition:
+
+    
+    map $slow $rate {
+        1     4k;
+        2     8k;
+    }
+    
+    proxy_download_rate $rate;
+
+
+
+
+
+
+
 
 
 =head2 proxy_next_upstream
@@ -978,6 +996,24 @@ The zero value disables rate limiting.
 The limit is set per a connection, so if the client simultaneously opens
 two connections,
 the overall rate will be twice as much as the specified limit.
+
+
+
+
+
+Parameter value can contain variables (1.17.0).
+It may be useful in cases where rate should be limited
+depending on a certain condition:
+
+    
+    map $slow $rate {
+        1     4k;
+        2     8k;
+    }
+    
+    proxy_upload_rate $rate;
+
+
 
 
 

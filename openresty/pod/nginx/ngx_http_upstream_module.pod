@@ -433,7 +433,8 @@ Default value is zero, i.e. slow start is disabled.
 B<NOTE>
 
 The parameter cannot be used along with the
-L</hash> and L</ip_hash> load balancing methods.
+L</hash>, L</ip_hash>, and L</random>
+load balancing methods.
 
 
 

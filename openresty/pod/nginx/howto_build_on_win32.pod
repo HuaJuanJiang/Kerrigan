@@ -106,9 +106,9 @@ sources into lib directory:
     mkdir objs
     mkdir objs/lib
     cd objs/lib
-    tar -xzf ../../pcre-8.42.tar.gz
+    tar -xzf ../../pcre-8.43.tar.gz
     tar -xzf ../../zlib-1.2.11.tar.gz
-    tar -xzf ../../openssl-1.1.1b.tar.gz
+    tar -xzf ../../openssl-1.1.1c.tar.gz
 
 
 
@@ -134,9 +134,9 @@ Run configure script:
         --http-scgi-temp-path=temp/scgi_temp \
         --http-uwsgi-temp-path=temp/uwsgi_temp \
         --with-cc-opt=-DFD_SETSIZE=1024 \
-        --with-pcre=objs/lib/pcre-8.42 \
+        --with-pcre=objs/lib/pcre-8.43 \
         --with-zlib=objs/lib/zlib-1.2.11 \
-        --with-openssl=objs/lib/openssl-1.1.1b \
+        --with-openssl=objs/lib/openssl-1.1.1c \
         --with-openssl-opt=no-asm \
         --with-http_ssl_module
 

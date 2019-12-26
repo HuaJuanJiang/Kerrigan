@@ -1750,7 +1750,7 @@ C<--with-pcre=I<C<path>>>
 
 sets the path to the sources of the PCRE library.
 The library distribution (version
-4.4E<mdash>8.42) needs to be downloaded from the
+4.4E<mdash>8.43) needs to be downloaded from the
 L<PCRE|http://www.pcre.org> site and extracted.
 The rest is done by nginx’s C<.E<sol>configure> and
 C<make>.
@@ -1956,7 +1956,7 @@ Example of parameters usage (all of this needs to be typed in one line):
         --conf-path=/usr/local/nginx/nginx.conf
         --pid-path=/usr/local/nginx/nginx.pid
         --with-http_ssl_module
-        --with-pcre=../pcre-8.42
+        --with-pcre=../pcre-8.43
         --with-zlib=../zlib-1.2.11
 
 

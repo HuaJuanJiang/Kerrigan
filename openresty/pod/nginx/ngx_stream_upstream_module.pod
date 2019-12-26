@@ -402,7 +402,7 @@ Default value is zero, i.e. slow start is disabled.
 B<NOTE>
 
 The parameter cannot be used along with the
-L</hash> load balancing method.
+L</hash> and L</random> load balancing methods.
 
 
 
