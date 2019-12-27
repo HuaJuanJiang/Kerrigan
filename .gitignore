@@ -4,8 +4,10 @@
 .bash_profile
 .bashrc
 .viminfo
+.vim
 .ssh
 .cache
+.luarocks
 beforeGit.sh
 logs
 openresty/nginx/logs/*.log
