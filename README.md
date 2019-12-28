@@ -29,9 +29,7 @@
 
 ​		架构图（可能会更改）
 
-![](https://github.com/ranzhendong/kerrigan/tree/eleven/.image/KerriganArchitectureMap.png)
-
-</br></br>
+![Kerrigan Architecture Map](.image/KerriganArchitectureMap.png)
 
 # Copyright & License
 
