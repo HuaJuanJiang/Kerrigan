@@ -36,6 +36,7 @@ server {
 server {
     listen       443 ssl;
     server_name  www.example_01.com example_01.com;
+    # args in logs can be error
     access_log ${nginx_logs_home}accesslog/${example_01_log} main;
     error_log ${nginx_logs_home}errorlog/${example_01_log} info;
 
