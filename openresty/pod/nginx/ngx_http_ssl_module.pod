@@ -1292,7 +1292,7 @@ C<$uri>, C<$args> and others, are available.
 
 
 The C<ngx_http_ssl_module> module supports
-several embedded variables:
+embedded variables:
 
 =over
 

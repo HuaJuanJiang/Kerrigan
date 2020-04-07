@@ -319,7 +319,7 @@ Example using C<ngx_errno>:
 
 
     
-    void
+    ngx_int_t
     ngx_my_kill(ngx_pid_t pid, ngx_log_t *log, int signo)
     {
         ngx_err_t  err;
@@ -921,14 +921,14 @@ The compiled regular expression can then be used for matching against strings:
 
 
 The arguments to C<ngx_regex_exec()> are the compiled regular
-expression C<re>, the string to match C<s>,
+expression C<re>, the string to match C<input>,
 an optional array of integers to hold any C<captures> that are
 found, and the array's C<size>.
 The size of the C<captures> array must be a multiple of three,
 as required by the
 L<PCRE API|http://www.pcre.org/original/doc/html/pcreapi.html>.
 In the example, the size is calculated from the total number of captures plus
-C<1>one for the matched string itself.
+one for the matched string itself.
 
 
 
@@ -1692,7 +1692,7 @@ There are two generic key-creation functions:
 C<ngx_hash_key(data, len)> and
 C<ngx_hash_key_lc(data, len)>.
 The latter converts a string to all lowercase characters, so the passed string
-must be writeable.
+must be writable.
 If that is not true, pass the C<NGX_HASH_READONLY_KEY> flag
 to the function, initializing the key array (see below).
 
@@ -3396,7 +3396,7 @@ point later within the current event loop iteration.
 Posting events is a good practice for simplifying code and escaping stack
 overflows.
 Posted events are held in a post queue.
-The C<ngx_post_event(ev, q)> mscro posts the event
+The C<ngx_post_event(ev, q)> macro posts the event
 C<ev> to the post queue C<q>.
 The C<ngx_delete_posted_event(ev)> macro deletes the event
 C<ev> from the queue it's currently posted in.
@@ -4926,7 +4926,7 @@ Each HTTP client connection runs through the following stages:
 
 C<ngx_event_accept()> accepts a client TCP connection.
 This handler is called in response to a read notification on a listen socket.
-A new C<ngx_connecton_t> object is created at this stage
+A new C<ngx_connection_t> object is created at this stage
 to wrap the newly accepted client socket.
 Each nginx listener provides a handler to pass the new connection object to.
 For HTTP connections it's C<ngx_http_init_connection(c)>.
@@ -9105,6 +9105,218 @@ Labels are surrounded with empty lines and are indented at the previous level:
         freeaddrinfo(res);
         return NGX_ERROR;
 
+
+
+
+
+=head1 Common Pitfalls
+
+
+=head2 Writing a C module
+
+
+
+The most common pitfall is an attempt to write a full-fledged C module
+when it can be avoided.
+In most cases your task can be accomplished by creating a proper configuration.
+If writing a module is inevitable, try to make it
+as small and simple as possible.
+For example, a module can only export some
+variables.
+
+
+
+
+
+Before starting a module, consider the following questions:
+
+
+=over
+
+
+
+
+=item *
+
+Is it possible to implement a desired feature using already
+L<available modules|index>?
+
+
+
+=item *
+
+Is it possible to solve an issue using built-in scripting languages,
+such as L<Perl|ngx_http_perl_module>
+or L<njs|index>?
+
+
+
+=back
+
+
+
+
+
+
+
+=head2 C Strings
+
+
+
+The most used string type in nginx,
+ngx_str_t is not a C-Style
+zero-terminated string.
+You cannot pass the data to standard C library functions
+such as C<strlen> or C<strstr>.
+Instead, nginx counterparts
+that accept either C<ngx_str_t> should be used
+or pointer to data and a length.
+However, there is a case when C<ngx_str_t> holds
+a pointer to a zero-terminated string: strings that come as a result of
+configuration file parsing are zero-terminated.
+
+
+
+
+=head2 Global Variables
+
+
+
+Avoid using global variables in your modules.
+Most likely this is an error to have a global variable.
+Any global data should be tied to a configuration cycle
+and be allocated from the corresponding memory pool.
+This allows nginx to perform graceful configuration reloads.
+An attempt to use global variables will likely break this feature,
+because it will be impossible to have two configurations at
+the same time and get rid of them.
+Sometimes global variables are required.
+In this case, special attention is needed to manage reconfiguration
+properly.
+Also, check if libraries used by your code have implicit
+global state that may be broken on reload.
+
+
+
+
+=head2 Manual Memory Management
+
+
+
+Instead of dealing with mallocE<sol>free approach which is error prone,
+learn how to use nginx pools.
+A pool is created and tied to an object -
+configuration,
+cycle,
+connection,
+or HTTP request.
+When the object is destroyed, the associated pool is destroyed too.
+So when working with an object, it is possible to allocate the amount
+needed from the corresponding pool and don't care about freeing memory
+even in case of errors.
+
+
+
+
+=head2 Threads
+
+
+
+It is recommended to avoid using threads in nginx because it will
+definitely break things: most nginx functions are not thread-safe.
+It is expected that a thread will be executing only system calls and
+thread-safe library functions.
+If you need to run some code that is not related to client request processing,
+the proper way is to schedule a timer in the C<init_process>
+module handler and perform required actions in timer handler.
+Internally nginx makes use of threads to
+boost IO-related operations, but this is a special case with a lot
+of limitations.
+
+
+
+
+=head2 Blocking Libraries
+
+
+
+A common mistake is to use libraries that are blocking internally.
+Most libraries out there are synchronous and blocking by nature.
+In other words, they perform one operation at a time and waste
+time waiting for response from other peer.
+As a result, when a request is processed with such library, whole
+nginx worker is blocked, thus destroying performance.
+Use only libraries that provide asynchronous interface and don't
+block whole process.
+
+
+
+
+=head2 HTTP Requests to External Services
+
+
+
+Often modules need to perform an HTTP call to some external service.
+A common mistake is to use some external library, such as libcurl,
+to perform the HTTP request.
+It is absolutely unnecessary to bring a huge amount of external
+(probably blocking!) code
+for the task which can be accomplished by nginx itself.
+
+
+
+
+
+There are two basic usage scenarios when an external request is needed:
+
+
+=over
+
+
+
+
+=item *
+
+in the context of processing a client request (for example, in content handler)
+
+
+
+=item *
+
+in the context of a worker process (for example, timer handler)
+
+
+
+=back
+
+
+
+
+
+
+
+
+In the first case, the best is to use
+subrequests API.
+Instead of directly accessing external service, you declare a location
+in nginx configuration and direct your subrequest to this location.
+This location is not limited to
+L<proxying|ngx_http_proxy_module>
+requests, but may contain other nginx directives.
+An example of such approach is the
+L<ngx_http_auth_request_module>
+directive implemented in
+L<ngx_http_auth_request module|http://hg.nginx.org/nginx/file/tip/src/http/modules/ngx_http_auth_request_module.c>.
+
+
+
+
+
+For the second case, it is possible to use basic HTTP client functionality
+available in nginx.
+For example,
+L<OCSP module|http://hg.nginx.org/nginx/file/tip/src/event/ngx_event_openssl_stapling.c>
+implements simple HTTP client.
 
 
 

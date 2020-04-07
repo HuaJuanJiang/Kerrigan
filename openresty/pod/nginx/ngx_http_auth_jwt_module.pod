@@ -414,6 +414,14 @@ L<JWT claim|https://tools.ietf.org/html/rfc7519#section-4>
 
 
 
+For nested claims and claims including a dot (“.”),
+the value of the variable cannot be evaluated;
+the L</auth_jwt_claim_set> directive should be used instead.
+
+
+
+
+
 
 =back
 

@@ -1620,9 +1620,27 @@ as the specified limit.
 
 
 
-Rate limit can also be set in the C<$limit_rate> variable.
+Parameter value can contain variables (1.17.0).
 It may be useful in cases where rate should be limited
 depending on a certain condition:
+
+    
+    map $slow $rate {
+        1     4k;
+        2     8k;
+    }
+    
+    limit_rate $rate;
+
+
+
+
+
+
+
+Rate limit can also be set in the
+C<$limit_rate> variable,
+however, since version 1.17.0, this method is not recommended:
 
     
     server {
@@ -1686,6 +1704,7 @@ This directive appeared in version 0.8.0.
 
 Sets the initial amount after which the further transmission
 of a response to a client will be rate limited.
+Parameter value can contain variables (1.17.0).
 
 
 
@@ -3135,7 +3154,10 @@ B<context:> I<location>
 
 
 
-Enables or disables resetting timed out connections.
+Enables or disables resetting timed out connections
+and connections
+L<closed|ngx_http_rewrite_module>
+with the non-standard code 444 (1.15.2).
 The reset is performed as follows.
 Before closing a socket, the
 C<SO_LINGER>

@@ -150,6 +150,42 @@ directives on the current level.
 
 
 
+=head2 limit_req_dry_run
+
+
+B<syntax:> limit_req_dry_run I<C<on> E<verbar> C<off>>
+
+
+B<default:> I<on>
+
+
+B<context:> I<http>
+
+
+B<context:> I<server>
+
+
+B<context:> I<location>
+
+
+
+This directive appeared in version 1.17.1.
+
+
+
+
+
+Enables the dry run mode.
+In this mode, requests processing rate is not limited, however,
+in the shared memory zone, the number of excessive requests is accounted
+as usual.
+
+
+
+
+
+
+
 =head2 limit_req_log_level
 
 

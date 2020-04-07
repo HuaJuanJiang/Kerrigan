@@ -67,7 +67,7 @@ B<context:> I<if in location>
 Adds the specified field to a response header provided that
 the response code equals 200, 201 (1.3.10), 204, 206, 301, 302, 303, 304,
 307 (1.1.16, 1.0.13), or 308 (1.13.0).
-The value can contain variables.
+Parameter value can contain variables.
 
 
 
@@ -122,7 +122,7 @@ This directive appeared in version 1.13.2.
 
 Adds the specified field to the end of a response provided that
 the response code equals 200, 201, 206, 301, 302, 303, 307, or 308.
-The value can contain variables.
+Parameter value can contain variables.
 
 
 
